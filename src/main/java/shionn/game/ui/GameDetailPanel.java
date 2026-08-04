@@ -1,16 +1,16 @@
 package shionn.game.ui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,23 +18,25 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListDataListener;
 
 import shionn.game.games.Engine;
 import shionn.game.games.Game;
 import shionn.game.games.Proton;
+import shionn.game.launcher.GameRunner;
 
-public class GameDetailPanel extends JPanel implements MouseListener {
+public class GameDetailPanel extends JPanel implements MouseListener, PropertyChangeListener {
 
 	private static final long serialVersionUID = -5616354546807861821L;
 	private Game game;
 	private Engine engine;
+	private JButton runButton;
+	private JButton installButton;
 
 	public GameDetailPanel(Engine engine, Game game) {
 		this.engine = engine;
 		this.game = game;
+		game.getPcs().addPropertyChangeListener(this);
 		addMouseListener(this);
 		setLayout(new GridBagLayout());
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -43,6 +45,15 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		buildSeparator();
 		buildRunButton();
 		buildProtonSelect();
+
+		refresh();
+	}
+
+	private void refresh() {
+		runButton.setVisible(game.isRunnable());
+		installButton.setVisible(game.isInstallable());
+		revalidate();
+		repaint();
 	}
 
 	private void buildImageTitle() {
@@ -55,9 +66,7 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		JLabel label = new JLabel(game.getName(), SwingConstants.CENTER);
 		label.setFont(label.getFont().deriveFont(Font.BOLD, 24));
 		label.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
-//		label.setBorder(BorderFactory.createLineBorder(Color.red));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-
 		add(label, buildHorizontalConstraint(0, 1));
 	}
 
@@ -70,56 +79,30 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 	}
 
 	private void buildRunButton() {
-		JButton button = new JButton("Lancer ");
-		button.setFont(getFont().deriveFont(Font.BOLD, 24));
-		button.setBackground(Color.GREEN);
-		button.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
-		button.setVisible(game.isInstalled());
-		add(button, buildLeftConstraint(0, 3));
+		runButton = new JButton("Lancer");
+		runButton.setFont(getFont().deriveFont(Font.BOLD, 24));
+		runButton.setBackground(Color.GREEN);
+		runButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
+		add(runButton, buildLeftConstraint(0, 3));
+
+		installButton = new JButton("Installer");
+		installButton.setFont(getFont().deriveFont(Font.BOLD, 24));
+		installButton.setBackground(Color.RED);
+		installButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
+		installButton.addActionListener(e -> new GameRunner(engine, game).startInstall());
+		add(installButton, buildLeftConstraint(1, 3));
 	}
 
 	private void buildProtonSelect() {
 		JLabel jLabel = new JLabel("Version Proton");
 		add(jLabel, buildLeftConstraint(0, 4));
 
-		JComboBox<Proton> box = new JComboBox<Proton>(new ComboBoxModel<Proton>() {
-
-			@Override
-			public int getSize() {
-				return engine.getProtons().size();
-			}
-
-			@Override
-			public Proton getElementAt(int index) {
-				return engine.getProtons().get(index);
-			}
-
-			@Override
-			public void addListDataListener(ListDataListener l) {
-			}
-
-			@Override
-			public void removeListDataListener(ListDataListener l) {
-			}
-
-			@Override
-			public void setSelectedItem(Object anItem) {
-				game.setProton(((Proton) anItem).getName());
-			}
-
-			@Override
-			public Object getSelectedItem() {
-				return engine.proton(game.getProton());
-			}
-		});
-		box.setRenderer(new ListCellRenderer<Proton>() {
-			@Override
-			public Component getListCellRendererComponent(JList<? extends Proton> list, Proton value, int index,
-					boolean isSelected, boolean cellHasFocus) {
-				return new JLabel(value == null ? "--" : value.getName());
-			}
-		});
-
+		JComboBox<Proton> box = new JComboBox<Proton>(engine.getProtons().toArray(s -> new Proton[s]));
+		box
+				.setRenderer((JList<? extends Proton> list, Proton value, int index, boolean isSelected,
+						boolean cellHasFocus) -> new JLabel(value == null ? "--" : value.getName()));
+		box.setSelectedItem(engine.proton(game.getProton()));
+		box.addActionListener(e -> game.setProton(((Proton) box.getSelectedItem()).getName()));
 		add(box, buildLeftConstraint(1, 4));
 
 	}
@@ -142,16 +125,6 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		gbc.weighty = 0;
 		gbc.anchor = GridBagConstraints.WEST;
 		gbc.fill = GridBagConstraints.NONE;
-		return gbc;
-	}
-
-	private GridBagConstraints buildBothConstraint(int x, int y) {
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = x;
-		gbc.gridy = y;
-		gbc.weightx = 1.0;
-		gbc.weighty = 1.0;
-		gbc.fill = GridBagConstraints.BOTH;
 		return gbc;
 	}
 
@@ -178,6 +151,11 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		e.consume();
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		refresh();
 	}
 
 }

@@ -36,4 +36,8 @@ public class Configuration {
 		return folder;
 	}
 
+	public String steamFolder() {
+		return getFolder("folder.steam");
+	}
+
 }

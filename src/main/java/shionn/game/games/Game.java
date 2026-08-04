@@ -1,5 +1,6 @@
 package shionn.game.games;
 
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Game implements Comparable<Game> {
+	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	private String letter;
 	private String name;
@@ -27,6 +29,20 @@ public class Game implements Comparable<Game> {
 			c = name.compareTo(o.name);
 		}
 		return c;
+	}
+
+	public boolean isRunnable() {
+		return proton != null && isInstalled();
+	}
+
+	public boolean isInstallable() {
+		return proton != null && !isInstalled();
+	}
+
+	public void setProton(String proton) {
+		String old = this.proton;
+		this.proton = proton;
+		pcs.firePropertyChange("proton", old, this.proton);
 	}
 
 }
