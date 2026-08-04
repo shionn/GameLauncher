@@ -1,0 +1,76 @@
+package shionn.game.games;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import shionn.game.Configuration;
+
+public class Scanner {
+	private Configuration configuration = new Configuration();
+
+	public Engine buildEngine() {
+		return Engine.builder().games(scanGames()).protons(scanProtons()).build();
+	}
+
+	private List<Game> scanGames() {
+		List<Game> games = new ArrayList<>();
+		games.addAll(scanInstallers());
+		games = checkInstalled(games);
+		return games.stream().sorted().toList();
+	}
+
+	private List<Game> scanInstallers() {
+		List<Game> games = new ArrayList<>();
+		File rootFolder = new File(configuration.instalersFolder());
+		for (File letterFolder : rootFolder.listFiles(pathname ->pathname.isDirectory())) {
+			for (File gameFolder : letterFolder.listFiles(pathname ->pathname.isDirectory())) {
+				games
+						.add(Game
+								.builder()
+								.letter(letterFolder.getName())
+								.name(gameFolder.getName())
+								.instalers(listAbsolutePath(gameFolder, ".exe"))
+								.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
+								.build());
+			}
+		}
+
+		return games;
+	}
+
+	private List<String> listAbsolutePath(File folder, String extenssion) {
+		return Arrays
+				.stream(folder.listFiles(pathname -> pathname.getName().endsWith(extenssion)))
+				.map(f -> f.getAbsolutePath())
+				.toList();
+	}
+
+	private List<Proton> scanProtons() {
+		List<Proton> protons = new ArrayList<>();
+		File rootFolder = new File(configuration.protonsFolder());
+		for (File protonFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
+			protons.add(Proton.builder().name(protonFolder.getName()).path(protonFolder.getAbsolutePath()).build());
+		}
+		return protons;
+	}
+
+	private List<Game> checkInstalled(List<Game> games) {
+		File rootFolder = new File(configuration.gamesFolder());
+		for (File gameFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
+			games.stream().filter(g -> g.getName().equals(gameFolder.getName())).findAny().ifPresent(game -> {
+				game.setInstalled(true);
+				game.setInstalledFolder(gameFolder.getAbsolutePath());
+			});
+		}
+		List<String> names = Arrays
+				.stream(rootFolder.listFiles(pathname -> pathname.isDirectory()))
+				.map(f -> f.getName())
+				.toList();
+		games.forEach(g -> g.setInstalled(names.contains(g.getName())));
+		// TODO load json
+		return games;
+	}
+
+}
