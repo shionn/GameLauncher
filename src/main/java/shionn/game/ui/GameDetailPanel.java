@@ -9,16 +9,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileFilter;
 
 import shionn.game.games.Engine;
 import shionn.game.games.Game;
@@ -32,6 +35,7 @@ public class GameDetailPanel extends JPanel implements MouseListener, PropertyCh
 	private Engine engine;
 	private JButton runButton;
 	private JButton installButton;
+	private JButton runfileButtonChooser;
 
 	public GameDetailPanel(Engine engine, Game game) {
 		this.engine = engine;
@@ -45,13 +49,14 @@ public class GameDetailPanel extends JPanel implements MouseListener, PropertyCh
 		buildSeparator();
 		buildRunButton();
 		buildProtonSelect();
-
+		buildExecutableSelect();
 		refresh();
 	}
 
 	private void refresh() {
 		runButton.setVisible(game.isRunnable());
 		installButton.setVisible(game.isInstallable());
+		installButton.setEnabled(true);
 		revalidate();
 		repaint();
 	}
@@ -83,6 +88,7 @@ public class GameDetailPanel extends JPanel implements MouseListener, PropertyCh
 		runButton.setFont(getFont().deriveFont(Font.BOLD, 24));
 		runButton.setBackground(Color.GREEN);
 		runButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
+		runButton.addActionListener(e -> new GameRunner(engine, game).start());
 		add(runButton, buildLeftConstraint(0, 3));
 
 		installButton = new JButton("Installer");
@@ -104,7 +110,36 @@ public class GameDetailPanel extends JPanel implements MouseListener, PropertyCh
 		box.setSelectedItem(engine.proton(game.getProton()));
 		box.addActionListener(e -> game.setProton(((Proton) box.getSelectedItem()).getName()));
 		add(box, buildLeftConstraint(1, 4));
+	}
 
+	private void buildExecutableSelect() {
+		JLabel jLabel = new JLabel("Executable");
+		add(jLabel, buildLeftConstraint(0, 5));
+
+		runfileButtonChooser = new JButton("Selectionner");
+		runfileButtonChooser.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File(game.getInstalledFolder()));
+			fileChooser.setFileFilter(new FileFilter() {
+				@Override
+				public boolean accept(File f) {
+					return f.isDirectory() || f.isFile() && f.getName().endsWith(".exe");
+				}
+
+				@Override
+				public String getDescription() {
+					return "Executable (.exe)";
+				}
+			});
+			int result = fileChooser.showOpenDialog(getTopLevelAncestor());
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				game.setRunFile(selectedFile.getAbsolutePath());
+				runfileButtonChooser.setText(selectedFile.getAbsolutePath());
+			}
+		});
+
+		add(runfileButtonChooser, buildLeftConstraint(1, 5));
 	}
 
 	private GridBagConstraints buildHorizontalConstraint(int x, int y) {

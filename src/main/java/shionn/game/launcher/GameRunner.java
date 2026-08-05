@@ -1,6 +1,5 @@
 package shionn.game.launcher;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -21,32 +20,62 @@ public class GameRunner {
 	}
 
 	public void start() {
-		// TODO Auto-generated method stub
+
+		try {
+//			ProcessBuilder processBuilder = new ProcessBuilder("gedit");
+			ProcessBuilder processBuilder = new ProcessBuilder("umu-run", game.getRunfile());
+			Map<String, String> env = processBuilder.environment();
+			env.put("WINEPREFIX", configuration.gamesFolder() + game.getName());
+			env.put("PROTONPATH", engine.proton(game.getProton()).getPath());
+			env.put("UMU_LOG", "1");
+			env.put("PROTON_LOG", "1");
+			env.put("STORE", "gog");
+			env.put("GAMEID", "15130");
+			// env.put("OPENSSL_ia32cap", "~0x20000000");
+			env.put("STEAM_LINUX_RUNTIME_VERBOSE", "1");
+			env.put("STEAM_LINUX_RUNTIME_LOG", "1");
+//			env.put("LD_LIBRARY_PATH", buildLdLibraryPath());
+			processBuilder.redirectErrorStream(true);
+			Process process = processBuilder.start();
+			System.out.println("Start");
+//			System.out.println("env : " + env);
+			StringBuilder command = new StringBuilder()
+					.append("WINEPREFIX=\"")
+					.append(configuration.gamesFolder() + game.getName())
+					.append("\" PROTONPATH=\"")
+					.append(engine.proton(game.getProton()).getPath())
+					.append("\" umu-run \"")
+					.append(game.getRunfile())
+					.append('"');
+			System.out.println(command);
+			int exitCode = process.waitFor();
+			System.out.println("Code de retour : " + exitCode);
+		} catch (IOException | InterruptedException e) {
+			throw new IllegalStateException(e);
+		}
 
 	}
 
 	public void startInstall() {
 
-		try {
-			new File(configuration.gamesFolder() + game.getName()).mkdir();
+		/**
+		 * https://github.com/Open-Wine-Components/umu-launcher
+		 * WINEPREFIX=$HOME/Games/epic-games-store GAMEID=umu-dauntless STORE=egs
+		 * PROTONPATH="$HOME/.steam/steam/compatibilitytools.d/GE-Proton8-28" umu-run
+		 * "$HOME/Games/epic-games-store/drive_c/Program Files (x86)/Epic Games/Launcher/Portal/Binaries/Win32/EpicGamesLauncher.exe"
+		 * -opengl
+		 * -SkipBuildPatchPrereq
+		 */
 
-			StringBuilder command = new StringBuilder()
-					.append(engine.proton(game.getProton()).getPath())
-					.append("/proton");
-			ProcessBuilder processBuilder = new ProcessBuilder(command.toString(), "run", game.getInstalers().get(0));
+		try {
+			ProcessBuilder processBuilder = new ProcessBuilder("umu-run", game.getInstalers().get(0));
 			Map<String, String> env = processBuilder.environment();
-			env.put("LD_LIBRARY_PATH", buildLdLibraryPath());
-//			env.put("SDL_GAMECONTROLLERCONFIG", GAME_CONTROLLER);
-//			env.put("SDL_GAMECONTROLLER_ALLOW_STEAM_VIRTUAL_GAMEPAD", "1");
-//			env.put("SDL_GAMECONTROLLER_USE_BUTTON_LABELS", "1");
-//			env.put("SDL_VIDEO_X11_DGAMOUSE", "0");
-			env.put("STEAM_COMPAT_CLIENT_INSTALL_PATH", configuration.steamFolder());
-			env.put("STEAM_COMPAT_DATA_PATH", configuration.gamesFolder() + game.getName());
-			System.out.println("env : " + env);
-			System.out.println("Command : " + command.toString() + " run " + game.getInstalers().get(0));
+			env.put("WINEPREFIX", configuration.gamesFolder() + game.getName());
+			env.put("PROTONPATH", engine.proton(game.getProton()).getPath());
 			Process process = processBuilder.start();
 			int exitCode = process.waitFor();
 			System.out.println("Code de retour : " + exitCode);
+			game.setInstalled(exitCode == 0);
 		} catch (IOException | InterruptedException e) {
 			throw new IllegalStateException(e);
 		}

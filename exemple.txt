@@ -1,0 +1,365 @@
+(15:44:18) [INFO]:    Launching "Beyond Good and Evil" (sideload)
+
+(15:44:18) [INFO]:    Native? false
+
+(15:44:18) [INFO]:    Installed in: /home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil/drive_c/GOG Games/Beyond Good and Evil
+
+(15:44:18) [INFO]:    System Info:
+
+CPU: 16x AMD Ryzen 7 5800X3D 8-Core Processor
+
+Memory: 67.35 GB (used: 9.54 GB)
+
+GPUs:
+
+  GPU 0:
+
+    Name: Advanced Micro Devices, Inc. [AMD/ATI] Navi 48 [Radeon RX 9070/9070 XT/9070 GRE]
+
+    IDs: D=7550 V=1002 SD=8811 SV=1eae
+
+    Driver: amdgpu
+
+OS: Debian GNU/Linux 13 (trixie) (linux)
+
+The current system is not a Steam Deck
+
+We are not running inside a Flatpak container
+
+We are not running from an AppImage
+
+Software Versions:
+
+  Heroic: 2.22.0 Hajrudin
+
+  Legendary: 0.20.43 Riding Shotgun (Heroic)
+
+  gogdl: 1.2.1
+
+  comet: comet 0.2.0
+
+  Nile: 1.1.2 Will A. Zeppeli
+
+(15:44:18) [INFO]:    Game Settings: {
+
+  "autoInstallDxvkNvapi": true,
+
+  "preferSystemLibs": false,
+
+  "enableEsync": true,
+
+  "enableFsync": true,
+
+  "enableWineWayland": false,
+
+  "enableHDR": false,
+
+  "enableWoW64": false,
+
+  "nvidiaPrime": false,
+
+  "enviromentOptions": [
+
+    {
+
+      "key": "PROTON_LOG",
+
+      "value": "1"
+
+    },
+
+    {
+
+      "key": "UMU_LOG",
+
+      "value": "1"
+
+    }
+
+  ],
+
+  "wrapperOptions": [],
+
+  "showFps": false,
+
+  "useGameMode": false,
+
+  "battlEyeRuntime": true,
+
+  "eacRuntime": true,
+
+  "language": "",
+
+  "beforeLaunchScriptPath": "",
+
+  "afterLaunchScriptPath": "",
+
+  "wineVersion": {
+
+    "bin": "/home/shionn/Games/.proton/GE-Proton10-34/proton",
+
+    "name": "Custom Proton - /home/shionn/Games/.proton/GE-Proton10-34/proton",
+
+    "type": "proton"
+
+  },
+
+  "winePrefix": "/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil"
+
+}
+
+ Stored at: /home/shionn/.config/heroic/GamesConfig/8RUncs81vpDcX6DbrZGwVZ.json
+
+(15:44:19) [INFO]:    Winetricks packages:
+
+Wine Command: /usr/bin/umu-run /home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil/drive_c/GOG Games/Beyond Good and Evil/BGE.exe
+
+Game Log:
+
+[umu.__main__:78] DEBUG: PROTON_LOG=1
+[umu.__main__:78] DEBUG: UMU_LOG=1
+[umu.__main__:78] DEBUG: SHELL=/bin/bash
+[umu.__main__:78] DEBUG: COLORTERM=truecolor
+[umu.__main__:78] DEBUG: HYPRLAND_CMD=Hyprland --watchdog-fd 4
+
+[umu.__main__:78] DEBUG: XDG_BACKEND=wayland
+
+[umu.__main__:78] DEBUG: KITTY_PID=44206
+[umu.__main__:78] DEBUG: HL_INITIAL_WORKSPACE_TOKEN=eca2389c-5b5a-434c-85f5-7774d0aceca9
+[umu.__main__:78] DEBUG: XCURSOR_SIZE=24
+[umu.__main__:78] DEBUG: XDG_SEAT=seat0
+[umu.__main__:78] DEBUG: PWD=/home/shionn
+[umu.__main__:78] DEBUG: LOGNAME=shionn
+[umu.__main__:78] DEBUG: XDG_SESSION_TYPE=wayland
+[umu.__main__:78] DEBUG: KITTY_PUBLIC_KEY=1:gu56rgja~eh>pO>;A3!fsL(8Ef@3YzNtJNA?3|z~
+[umu.__main__:78] DEBUG: MOTD_SHOWN=pam
+[umu.__main__:78] DEBUG: HOME=/home/shionn
+[umu.__main__:78] DEBUG: LANG=fr_FR.UTF-8
+[umu.__main__:78] DEBUG: _JAVA_AWT_WM_NONREPARENTING=1
+[umu.__main__:78] DEBUG: LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.7z=01;31:*.ace=01;31:*.alz=01;31:*.apk=01;31:*.arc=01;31:*.arj=01;31:*.bz=01;31:*.bz2=01;31:*.cab=01;31:*.cpio=01;31:*.crate=01;31:*.deb=01;31:*.drpm=01;31:*.dwm=01;31:*.dz=01;31:*.ear=01;31:*.egg=01;31:*.esd=01;31:*.gz=01;31:*.jar=01;31:*.lha=01;31:*.lrz=01;31:*.lz=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.lzo=01;31:*.pyz=01;31:*.rar=01;31:*.rpm=01;31:*.rz=01;31:*.sar=01;31:*.swm=01;31:*.t7z=01;31:*.tar=01;31:*.taz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tgz=01;31:*.tlz=01;31:*.txz=01;31:*.tz=01;31:*.tzo=01;31:*.tzst=01;31:*.udeb=01;31:*.war=01;31:*.whl=01;31:*.wim=01;31:*.xz=01;31:*.z=01;31:*.zip=01;31:*.zoo=01;31:*.zst=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.jxl=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:
+[umu.__main__:78] DEBUG: XDG_CURRENT_DESKTOP=Hyprland
+[umu.__main__:78] DEBUG: WAYLAND_DISPLAY=wayland-1
+[umu.__main__:78] DEBUG: KITTY_WINDOW_ID=1
+[umu.__main__:78] DEBUG: XKB_DEFAULT_LAYOUT=fr
+[umu.__main__:78] DEBUG: XDG_SESSION_CLASS=user
+[umu.__main__:78] DEBUG: TERMINFO=/usr/lib/kitty/terminfo
+[umu.__main__:78] DEBUG: TERM=xterm-kitty
+[umu.__main__:78] DEBUG: USER=shionn
+[umu.__main__:78] DEBUG: HYPRLAND_INSTANCE_SIGNATURE=39d7e209c79d451efab1b21151d5938289da838d_1785923921_1143730059
+[umu.__main__:78] DEBUG: DISPLAY=:0
+[umu.__main__:78] DEBUG: SHLVL=2
+[umu.__main__:78] DEBUG: MOZ_ENABLE_WAYLAND=1
+[umu.__main__:78] DEBUG: XDG_VTNR=1
+[umu.__main__:78] DEBUG: XDG_SESSION_ID=1
+[umu.__main__:78] DEBUG: XKBLAYOUT=fr
+[umu.__main__:78] DEBUG: XDG_RUNTIME_DIR=/run/user/1000
+[umu.__main__:78] DEBUG: XKB_DEFAULT_VARIANT=azerty
+[umu.__main__:78] DEBUG: GDK_BACKEND=wayland
+[umu.__main__:78] DEBUG: PATH=/home/shionn/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+[umu.__main__:78] DEBUG: MOZ_ENABLE_WAYLANDs=1
+[umu.__main__:78] DEBUG: DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+[umu.__main__:78] DEBUG: MAIL=/var/mail/shionn
+[umu.__main__:78] DEBUG: KITTY_INSTALLATION_DIR=/usr/lib/kitty
+[umu.__main__:78] DEBUG: XKBVARIANT=azerty
+[umu.__main__:78] DEBUG: HYPRCURSOR_SIZE=24
+[umu.__main__:78] DEBUG: _=/usr/bin/heroic
+[umu.__main__:78] DEBUG: CHROME_DESKTOP=heroic.desktop
+[umu.__main__:78] DEBUG: FC_FONTATIONS=1
+[umu.__main__:78] DEBUG: NO_AT_BRIDGE=1
+[umu.__main__:78] DEBUG: LD_PRELOAD=
+
+[umu.__main__:78] DEBUG: STEAM_COMPAT_CLIENT_INSTALL_PATH=/home/shionn/.steam/steam
+[umu.__main__:78] DEBUG: WINEPREFIX=/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil
+[umu.__main__:78] DEBUG: STEAM_COMPAT_DATA_PATH=/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil
+[umu.__main__:78] DEBUG: PROTONPATH=/home/shionn/Games/.proton/GE-Proton10-34
+
+[umu.__main__:78] DEBUG: WINE_FULLSCREEN_FSR=0
+
+[umu.__main__:78] DEBUG: PROTON_ENABLE_NVAPI=1
+[umu.__main__:78] DEBUG: DXVK_NVAPI_ALLOW_OTHER_DRIVERS=1
+
+[umu.__main__:78] DEBUG: PROTON_EAC_RUNTIME=/home/shionn/.config/heroic/tools/runtimes/eac_runtime
+[umu.__main__:78] DEBUG: PROTON_BATTLEYE_RUNTIME=/home/shionn/.config/heroic/tools/runtimes/battleye_runtime
+
+[umu.__main__:78] DEBUG: STEAM_COMPAT_APP_ID=0
+
+[umu.__main__:78] DEBUG: SteamAppId=0
+
+[umu.__main__:78] DEBUG: SteamGameId=heroic-0
+
+[umu.__main__:78] DEBUG: PROTON_LOG_DIR=/home/shionn
+
+[umu.__main__:78] DEBUG: WINEDEBUG=+fixme
+
+[umu.__main__:78] DEBUG: DXVK_LOG_LEVEL=info
+
+[umu.__main__:78] DEBUG: VKD3D_DEBUG=fixme
+
+[umu.__main__:78] DEBUG: PROTON_VERB=waitforexitandrun
+
+[umu.umu_run:864] INFO: umu-launcher version 1.4.4 (3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0])
+
+[umu.umu_run:137] INFO: No GAMEID set, using umu-default
+
+[umu.umu_run:791] DEBUG: PROTONPATH set, resolving its required runtime
+
+[umu.umu_run:969] DEBUG: Connecting to '1.1.1.1'...
+
+[umu.umu_runtime:266] DEBUG: Local: /home/shionn/.local/share/umu/steamrt3
+
+[umu.umu_runtime:279] DEBUG: Sending request to 'https://repo.steampowered.com/steamrt3/images/latest-public-beta.txt' for 'latest-public-beta.txt'...
+
+[umu.umu_runtime:322] DEBUG: Existing install detected
+
+[umu.umu_runtime:323] DEBUG: Using container runtime 'steamrt3' aka 'sniper'
+
+[umu.umu_runtime:324] DEBUG: Checking updates for 'steamrt3'...
+
+[umu.umu_runtime:471] DEBUG: Acquiring file lock '/home/shionn/.local/share/umu/umu.lock'...
+
+[umu.umu_runtime:473] DEBUG: Acquired file lock '/home/shionn/.local/share/umu/umu.lock'
+
+[umu.umu_runtime:481] DEBUG: Released file lock '/home/shionn/.local/share/umu/umu.lock'
+
+[umu.umu_runtime:378] INFO: steamrt3 is up to date
+
+[umu.umu_run:1036] DEBUG: WINEPREFIX=/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil
+
+[umu.umu_run:1036] DEBUG: GAMEID=umu-default
+
+[umu.umu_run:1036] DEBUG: PROTON_CRASH_REPORT_DIR=/tmp/umu_crashreports
+
+[umu.umu_run:1036] DEBUG: PROTONPATH=/home/shionn/Games/.proton/GE-Proton10-34
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_APP_ID=68e7b9be32986cb3e2be9b8a3eb4e6b7
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_TOOL_PATHS=/home/shionn/Games/.proton/GE-Proton10-34:/home/shionn/.local/share/umu/steamrt3
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_LIBRARY_PATHS=/home
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_MOUNTS=/home/shionn/Games/.proton/GE-Proton10-34:/home/shionn/.local/share/umu/steamrt3
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_INSTALL_PATH=/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil/drive_c/GOG Games/Beyond Good and Evil
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_CLIENT_INSTALL_PATH=
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_DATA_PATH=/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_SHADER_PATH=/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil/shadercache
+
+[umu.umu_run:1036] DEBUG: STEAM_COMPAT_LAUNCHER_SERVICE=
+
+[umu.umu_run:1036] DEBUG: FONTCONFIG_PATH=
+
+[umu.umu_run:1036] DEBUG: EXE=/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil/drive_c/GOG Games/Beyond Good and Evil/BGE.exe
+
+[umu.umu_run:1036] DEBUG: SteamAppId=default
+
+[umu.umu_run:1036] DEBUG: SteamGameId=default
+
+[umu.umu_run:1036] DEBUG: STEAM_RUNTIME_LIBRARY_PATH=/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil/drive_c/GOG Games/Beyond Good and Evil:/usr/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/i386-linux-gnu
+
+[umu.umu_run:1036] DEBUG: STORE=
+
+[umu.umu_run:1036] DEBUG: PROTON_VERB=waitforexitandrun
+
+[umu.umu_run:1036] DEBUG: UMU_ID=umu-default
+
+[umu.umu_run:1036] DEBUG: UMU_ZENITY=
+
+[umu.umu_run:1036] DEBUG: UMU_NO_RUNTIME=
+
+[umu.umu_run:1036] DEBUG: UMU_RUNTIME_UPDATE=
+
+[umu.umu_run:1036] DEBUG: UMU_NO_PROTON=
+
+[umu.umu_run:1036] DEBUG: UMU_CONTAINER_NSENTER=
+
+[umu.umu_run:1036] DEBUG: RUNTIMEPATH=/home/shionn/.local/share/umu/steamrt3
+
+[umu.umu_run:1036] DEBUG: UMU_STEAM_GAME_ID=heroic-0
+
+[umu.umu_run:1036] DEBUG: UMU_INVOCATION_ID=c00f494665ca4f35b3f25c007c910a22
+
+[umu.umu_runtime:657] INFO: Running 'GE-Proton10-34' using runtime 'sniper'
+
+[umu.umu_runtime:657] INFO: Running 'steamrt3' using runtime 'host'
+
+[umu.umu_run:1047] DEBUG: ('/home/shionn/.local/share/umu/steamrt3/umu', '--verb=waitforexitandrun', '--', '/home/shionn/.local/share/umu/umu-shim', '/home/shionn/Games/.proton/GE-Proton10-34/proton', 'waitforexitandrun', '/home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil/drive_c/GOG Games/Beyond Good and Evil/BGE.exe')
+
+[umu.umu_run:736] DEBUG: prctl exited with status: 0
+
+setlocale "en_US.UTF-8": No such file or directory
+
+pv-locale-gen: Missing locale en_US.UTF-8
+
+pv-locale-gen: Generating locale fr_FR.UTF-8...
+
+pv-locale-gen: Generated locale fr_FR.UTF-8 successfully
+
+pv-locale-gen: Generating locale en_US.UTF-8...
+
+pv-locale-gen: Generated locale en_US.UTF-8 successfully
+
+pv-adverb[47075]: W: Container startup will be faster if missing locales are created at OS level
+
+ProtonFixes[47121] INFO: Running protonfixes on "GE-Proton10-34", build at 2026-03-23 03:55:11+00:00.
+
+ProtonFixes[47121] INFO: Running checks
+
+ProtonFixes[47121] INFO: All checks successful
+
+ProtonFixes[47121] WARN: Game title not found in CSV
+
+ProtonFixes[47121] INFO: Non-steam game UNKNOWN (umu-default)
+
+ProtonFixes[47121] INFO: No store specified, using UMU database
+
+ProtonFixes[47121] INFO: Using early stage global defaults for UNKNOWN (umu-default)
+
+ProtonFixes[47121] INFO: Non-steam game UNKNOWN (umu-default)
+
+ProtonFixes[47121] INFO: No store specified, using UMU database
+
+ProtonFixes[47121] INFO: No early stage global protonfix found for UNKNOWN (umu-default)
+
+ProtonFixes[47121] INFO: Running protonfixes on "GE-Proton10-34", build at 2026-03-23 03:55:11+00:00.
+
+ProtonFixes[47121] INFO: Running checks
+
+ProtonFixes[47121] INFO: All checks successful
+
+ProtonFixes[47121] INFO: Non-steam game UNKNOWN (umu-default)
+
+ProtonFixes[47121] INFO: No store specified, using UMU database
+
+ProtonFixes[47121] INFO: Using main stage global defaults for UNKNOWN (umu-default)
+
+ProtonFixes[47121] INFO: Non-steam game UNKNOWN (umu-default)
+
+ProtonFixes[47121] INFO: No store specified, using UMU database
+
+ProtonFixes[47121] INFO: No main stage global protonfix found for UNKNOWN (umu-default)
+
+Proton: /home/shionn/.Heroic/Prefixes/default/Beyond Good and Evil/drive_c/GOG Games/Beyond Good and Evil/BGE.exe
+
+Proton: Executable a unix path, launching with /unix option.
+
+[umu.umu_run:744] DEBUG: Child 47022 exited with wait status: 0
+
+============= End of log =============
+
+
+
+
+env : {OXYGEN_DISABLE_INNER_SHADOWS_HACK=1, SHLVL=1,
+LIBOVERLAY_SCROLLBAR=0, SHELL=/bin/bash, MOZ_ENABLE_WAYLANDs=1,
+WEBKIT_DISABLE_COMPOSITING_MODE=1, MAIL=/var/mail/shionn,
+ XDG_SESSION_CLASS=user, DISPLAY=:0, HOME=/home/shionn, _JAVA_AWT_WM_NONREPARENTING=1, XKB_DEFAULT_VARIANT=azerty, UMU_LOG=1, XDG_CURRENT_DESKTOP=Hyprland,
+  PATH=/home/shionn/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games,
+MOZ_ENABLE_WAYLAND=1, TERM=linux, LOGNAME=shionn, XDG_BACKEND=wayland,
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.7z=01;31:*.ace=01;31:*.alz=01;31:*.apk=01;31:*.arc=01;31:*.arj=01;31:*.bz=01;31:*.bz2=01;31:*.cab=01;31:*.cpio=01;31:*.crate=01;31:*.deb=01;31:*.drpm=01;31:*.dwm=01;31:*.dz=01;31:*.ear=01;31:*.egg=01;31:*.esd=01;31:*.gz=01;31:*.jar=01;31:*.lha=01;31:*.lrz=01;31:*.lz=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.lzo=01;31:*.pyz=01;31:*.rar=01;31:*.rpm=01;31:*.rz=01;31:*.sar=01;31:*.swm=01;31:*.t7z=01;31:*.tar=01;31:*.taz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tgz=01;31:*.tlz=01;31:*.txz=01;31:*.tz=01;31:*.tzo=01;31:*.tzst=01;31:*.udeb=01;31:*.war=01;31:*.whl=01;31:*.wim=01;31:*.xz=01;31:*.z=01;31:*.zip=01;31:*.zoo=01;31:*.zst=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.jxl=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:, LANG=fr_FR.UTF-8, WAYLAND_DISPLAY=wayland-1, PROTONPATH=/home/shionn/Games/.proton/GE-Proton10-34, XDG_SESSION_ID=1, XKBLAYOUT=fr, XCURSOR_SIZE=24, GIO_LAUNCHED_DESKTOP_FILE_PID=28650, XKBVARIANT=azerty, XDG_RUNTIME_DIR=/run/user/1000, MOTD_SHOWN=pam, GIO_LAUNCHED_DESKTOP_FILE=/home/shionn/.local/share/applications/Eclipse.desktop, HYPRLAND_INSTANCE_SIGNATURE=39d7e209c79d451efab1b21151d5938289da838d_1785923921_1143730059,
+WINEPREFIX=/home/shionn/Games/Beyond Good and Evil, GDK_BACKEND=x11,
+HYPRCURSOR_SIZE=24, XKB_DEFAULT_LAYOUT=fr, XDG_SEAT=seat0, HYPRLAND_CMD=Hyprland --watchdog-fd 4, XDG_VTNR=1, HL_INITIAL_WORKSPACE_TOKEN=2b939d92-0561-4baa-a057-3f04601e7018,
+USER=shionn, XDG_SESSION_TYPE=x11, PWD=/home/shionn, _=/usr/bin/start-hyprland, DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus,
+ PROTON_LOG=1, GDK_CORE_DEVICE_EVENTS=1}

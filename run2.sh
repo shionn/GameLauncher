@@ -1,7 +1,7 @@
 #!/bin/sh
 
-PREFIX_PATH="/home/shionn/Games/Beyond Good and Evil"
-PROTON_PATH=/home/shionn/Games/.proton/GE-Proton10-34
+PREFIX_PATH=/home/shionn/projects/GameLauncher/Prefix
+PROTON_PATH=/home/shionn/.local/proton/GE-Proton10-34
 STEAM_HOME_DIR=~/.local/share/Steam
 
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:\
@@ -23,7 +23,7 @@ export SDL_VIDEO_X11_DGAMOUSE="0"
 
 STEAM_COMPAT_CLIENT_INSTALL_PATH=~/.local/share/Steam \
 STEAM_COMPAT_DATA_PATH=${PREFIX_PATH} \
-$PROTON_PATH/proton run "/home/shionn/Games/Beyond Good and Evil/drive_c/GOG Games/Beyond Good and Evil/SettingsApplication.exe"
+$PROTON_PATH/proton run "/home/shionn/projects/GameLauncher/The Gunk/setup_the_gunk_1014.1.6.0_(74937).exe"
 # "-d3d12 -ResX=1440 -ResY=900 -FullscreenMode=1 -Fullscreen"
 
 #WINEPREFIX=${PREFIX_PATH} \

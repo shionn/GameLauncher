@@ -32,7 +32,7 @@ public class Game implements Comparable<Game> {
 	}
 
 	public boolean isRunnable() {
-		return proton != null && isInstalled();
+		return proton != null && isInstalled() && runfile != null;
 	}
 
 	public boolean isInstallable() {
@@ -43,6 +43,18 @@ public class Game implements Comparable<Game> {
 		String old = this.proton;
 		this.proton = proton;
 		pcs.firePropertyChange("proton", old, this.proton);
+	}
+
+	public void setInstalled(boolean installed) {
+		boolean old = this.installed;
+		this.installed = installed;
+		pcs.firePropertyChange("installed", old, this.installed);
+	}
+
+	public void setRunFile(String runfile) {
+		String old = this.runfile;
+		this.runfile = runfile;
+		pcs.firePropertyChange("runfile", old, this.runfile);
 	}
 
 }
