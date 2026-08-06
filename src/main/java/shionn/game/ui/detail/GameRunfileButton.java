@@ -1,4 +1,4 @@
-package shionn.game.ui;
+package shionn.game.ui.detail;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

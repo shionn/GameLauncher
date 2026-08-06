@@ -53,13 +53,13 @@ public class Game implements Comparable<Game> {
 		pcs.firePropertyChange("proton", old, this.proton);
 		saveConfiguration();
 	}
-//
-//	public void setInstalled(boolean installed) {
-//		boolean old = this.installed;
-//		this.installed = installed;
-////		pcs.firePropertyChange("installed", old, this.installed);
-//	}
-//
+
+	public void setInstalled(boolean installed) {
+		boolean old = this.installed;
+		this.installed = installed;
+		pcs.firePropertyChange("installed", old, this.installed);
+	}
+
 	public void setRunfile(String runfile) {
 		String old = this.runfile;
 		this.runfile = runfile;

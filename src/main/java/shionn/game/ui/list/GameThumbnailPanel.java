@@ -1,4 +1,4 @@
-package shionn.game.ui;
+package shionn.game.ui.list;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,6 +17,8 @@ import javax.swing.JPanel;
 
 import shionn.game.games.Engine;
 import shionn.game.games.Game;
+import shionn.game.ui.ImageBackgroundButton;
+import shionn.game.ui.detail.GameDetailPanel;
 
 public class GameThumbnailPanel extends JPanel {
 
@@ -43,16 +46,22 @@ public class GameThumbnailPanel extends JPanel {
 	}
 
 	private void openGame() {
-		JPanel overlay = new JPanel();
+		JPanel overlay = new JPanel() {
+			private static final long serialVersionUID = 572030084409517744L;
 
-		overlay.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
-		overlay.setBackground(new Color(0, 0, 0, 120));
-		overlay.setOpaque(true);
-//		overlay.setVisible(true);
+			@Override
+			protected void paintComponent(Graphics g) {
+				g.setColor(new Color(0, 0, 0, 120));
+				g.fillRect(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+		};
+
+		overlay.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100));
+		overlay.setOpaque(false);
 		overlay.setFocusable(true);
 		overlay.requestFocusInWindow();
-//		overlay.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
-		overlay.add(new GameDetailPanel(engine, game), BorderLayout.CENTER);
+		overlay.add(new GameDetailPanel(engine, game));
 		overlay.addMouseListener(new MouseListener() {
 
 			@Override
@@ -87,6 +96,7 @@ public class GameThumbnailPanel extends JPanel {
 				e.consume();
 			}
 		});
+
 
 		JFrame root = (JFrame) getTopLevelAncestor();
 		JLayeredPane contentPane = (JLayeredPane) root.getContentPane();

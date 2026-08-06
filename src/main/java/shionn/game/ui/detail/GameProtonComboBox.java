@@ -1,4 +1,4 @@
-package shionn.game.ui;
+package shionn.game.ui.detail;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;

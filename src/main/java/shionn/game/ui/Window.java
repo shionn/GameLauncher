@@ -14,6 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import lombok.RequiredArgsConstructor;
 import shionn.game.games.Engine;
 import shionn.game.games.Scanner;
+import shionn.game.ui.list.GameListPanel;
 
 @RequiredArgsConstructor
 public class Window {

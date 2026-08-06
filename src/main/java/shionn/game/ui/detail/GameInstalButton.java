@@ -1,4 +1,4 @@
-package shionn.game.ui;
+package shionn.game.ui.detail;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -9,25 +9,27 @@ import shionn.game.games.Engine;
 import shionn.game.games.Game;
 import shionn.game.launcher.GameRunner;
 
-public class GameRunButton extends JButton implements PropertyChangeListener {
-	private static final long serialVersionUID = 7206045278803514454L;
+public class GameInstalButton extends JButton implements PropertyChangeListener {
+
+	private static final long serialVersionUID = -3644937961355365317L;
 	private Game game;
 
-	public GameRunButton(Engine engine, Game game) {
-		super("Lancer");
+	public GameInstalButton(Engine engine, Game game) {
+		super("Installer");
 		this.game = game;
-		addActionListener(e -> new GameRunner(engine, game).start());
 //		setFont(getFont().deriveFont(Font.BOLD, 24));
-//		setBackground(Color.GREEN);
+//		setBackground(Color.RED);
 //		setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
-		setVisible(game.isRunnable());
+		addActionListener(e -> new GameRunner(engine, game).startInstall());
+		setVisible(false);
 		game.getPcs().addPropertyChangeListener(this);
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		setVisible(game.isRunnable());
+		setVisible(game.isInstallable());
 		revalidate();
 	}
+
 
 }

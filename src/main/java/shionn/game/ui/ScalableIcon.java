@@ -12,13 +12,15 @@ import javax.swing.Icon;
 
 public class ScalableIcon implements Icon {
 
-//	private String filename;
 	private BufferedImage image;
 
 
-	public ScalableIcon(String filename) throws IOException {
-//		this.filename = filename;
-		this.image = ImageIO.read(new File(filename));
+	public ScalableIcon(String filename) {
+		try {
+			this.image = ImageIO.read(new File(filename));
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	@Override
@@ -27,7 +29,6 @@ public class ScalableIcon implements Icon {
 		int height = c.getHeight();
 		Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		g.drawImage(scaledImage, x, y, null);
-
 	}
 
 	@Override
