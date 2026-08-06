@@ -29,19 +29,21 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 
 		add(buildImageTitle(game), buildHorizontalConstraint(0, 0));
 
-		add(new JLabel(game.getStore() + Optional.ofNullable(game.getGameId()).map(id -> " " + id).orElse("")),
-				constraint(0, 1, GridBagConstraints.SOUTHWEST));
-		add(buildTitle(game), buildHorizontalConstraint(1, 1));
+		add(buildTitle(game), buildHorizontalConstraint(0, 1));
 		add(new GameRunButton(engine, game), constraint(4, 1, GridBagConstraints.SOUTHEAST));
 
-		buildSeparator();
+		addSeparator(2);
 
-		add(new JLabel("Version Proton"), constraint(0, 4, GridBagConstraints.WEST));
-		add(new GameProtonComboBox(engine, game), constraint(1, 4, GridBagConstraints.WEST));
+		add(new JLabel("Version Proton"), constraint(0, 3, GridBagConstraints.WEST));
+		add(new GameProtonComboBox(engine, game), constraint(1, 3, GridBagConstraints.WEST));
 		add(new ConditionVisibleLabel("Executable", game, Game::isInstalled),
-				constraint(2, 4, GridBagConstraints.WEST));
-		add(new GameRunfileButton(engine, game), constraint(3, 4, GridBagConstraints.WEST));
-		add(new GameInstalButton(engine, game), constraint(4, 4, GridBagConstraints.EAST));
+				constraint(2, 3, GridBagConstraints.WEST));
+		add(new GameRunfileButton(engine, game), constraint(3, 3, GridBagConstraints.WEST));
+		add(new GameInstalButton(engine, game), constraint(4, 3, GridBagConstraints.EAST));
+
+		addSeparator(4);
+		add(new JLabel(game.getStore() + Optional.ofNullable(game.getGameId()).map(id -> " " + id).orElse("")),
+				constraint(0, 5, GridBagConstraints.SOUTHWEST));
 
 		// TODO gamemode / gamescope / mangohud
 
@@ -61,10 +63,10 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		return label;
 	}
 
-	private void buildSeparator() {
+	private void addSeparator(int line) {
 		JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-		separator.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-		GridBagConstraints gbc = buildHorizontalConstraint(0, 2);
+		separator.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		GridBagConstraints gbc = buildHorizontalConstraint(0, line);
 		gbc.insets = new Insets(0, 0, 5, 0);
 		add(separator, gbc);
 	}
