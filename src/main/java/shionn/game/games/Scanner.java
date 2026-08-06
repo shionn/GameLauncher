@@ -31,6 +31,8 @@ public class Scanner {
 								.builder()
 								.letter(letterFolder.getName())
 								.name(gameFolder.getName())
+								.gameId(retreiveGameId(gameFolder))
+								.store(retreiveStore(gameFolder))
 								.instalers(listAbsolutePath(gameFolder, ".exe"))
 								.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
 								.build());
@@ -38,6 +40,22 @@ public class Scanner {
 		}
 
 		return games;
+	}
+
+	private String retreiveGameId(File gameFolder) {
+		return Arrays
+				.stream(gameFolder.listFiles(p -> p.getName().endsWith(".umu")))
+				.map(p -> p.getName().replace(".umu", ""))
+				.findAny()
+				.orElse(null);
+	}
+
+	private String retreiveStore(File gameFolder) {
+		return Arrays
+				.stream(gameFolder.listFiles(p -> p.getName().endsWith(".store")))
+				.map(p -> p.getName().replace(".store", ""))
+				.findAny()
+				.orElse(null);
 	}
 
 	private List<String> listAbsolutePath(File folder, String extenssion) {
@@ -60,16 +78,11 @@ public class Scanner {
 		File rootFolder = new File(configuration.gamesFolder());
 		for (File gameFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
 			games.stream().filter(g -> g.getName().equals(gameFolder.getName())).findAny().ifPresent(game -> {
-				game.setInstalled(true);
 				game.setInstalledFolder(gameFolder.getAbsolutePath());
+				game.loadConfiguration();
+				game.setInstalled(true);
 			});
 		}
-		List<String> names = Arrays
-				.stream(rootFolder.listFiles(pathname -> pathname.isDirectory()))
-				.map(f -> f.getName())
-				.toList();
-		games.forEach(g -> g.setInstalled(names.contains(g.getName())));
-		// TODO load json
 		return games;
 	}
 

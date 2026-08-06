@@ -1,78 +1,64 @@
 package shionn.game.ui;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.File;
+import java.util.Optional;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.filechooser.FileFilter;
 
 import shionn.game.games.Engine;
 import shionn.game.games.Game;
-import shionn.game.games.Proton;
-import shionn.game.launcher.GameRunner;
 
-public class GameDetailPanel extends JPanel implements MouseListener, PropertyChangeListener {
+public class GameDetailPanel extends JPanel implements MouseListener {
 
 	private static final long serialVersionUID = -5616354546807861821L;
-	private Game game;
-	private Engine engine;
-	private JButton runButton;
-	private JButton installButton;
-	private JButton runfileButtonChooser;
 
 	public GameDetailPanel(Engine engine, Game game) {
-		this.engine = engine;
-		this.game = game;
-		game.getPcs().addPropertyChangeListener(this);
 		addMouseListener(this);
 		setLayout(new GridBagLayout());
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		buildImageTitle();
-		buildTitle();
+
+		add(buildImageTitle(game), buildHorizontalConstraint(0, 0));
+
+		add(new JLabel(game.getStore() + Optional.ofNullable(game.getGameId()).map(id -> " " + id).orElse("")),
+				constraint(0, 1, GridBagConstraints.SOUTHWEST));
+		add(buildTitle(game), buildHorizontalConstraint(1, 1));
+		add(new GameRunButton(engine, game), constraint(4, 1, GridBagConstraints.SOUTHEAST));
+
 		buildSeparator();
-		buildRunButton();
-		buildProtonSelect();
-		buildExecutableSelect();
-		refresh();
+
+		add(new JLabel("Version Proton"), constraint(0, 4, GridBagConstraints.WEST));
+		add(new GameProtonComboBox(engine, game), constraint(1, 4, GridBagConstraints.WEST));
+		add(new ConditionVisibleLabel("Executable", game, Game::isInstalled),
+				constraint(2, 4, GridBagConstraints.WEST));
+		add(new GameRunfileButton(engine, game), constraint(3, 4, GridBagConstraints.WEST));
+		add(new GameInstalButton(engine, game), constraint(4, 4, GridBagConstraints.EAST));
+
+		// TODO gamemode / gamescope / mangohud
+
 	}
 
-	private void refresh() {
-		runButton.setVisible(game.isRunnable());
-		installButton.setVisible(game.isInstallable());
-		installButton.setEnabled(true);
-		revalidate();
-		repaint();
-	}
-
-	private void buildImageTitle() {
+	private JLabel buildImageTitle(Game game) {
 		ImageIcon icon = new ImageIcon(game.getInstalersImgs().get(0));
 		JLabel label = new JLabel(icon);
-		add(label, buildHorizontalConstraint(0, 0));
+		return label;
 	}
 
-	private void buildTitle() {
+	private JLabel buildTitle(Game game) {
 		JLabel label = new JLabel(game.getName(), SwingConstants.CENTER);
 		label.setFont(label.getFont().deriveFont(Font.BOLD, 24));
 		label.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 0));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label, buildHorizontalConstraint(0, 1));
+		return label;
 	}
 
 	private void buildSeparator() {
@@ -83,83 +69,26 @@ public class GameDetailPanel extends JPanel implements MouseListener, PropertyCh
 		add(separator, gbc);
 	}
 
-	private void buildRunButton() {
-		runButton = new JButton("Lancer");
-		runButton.setFont(getFont().deriveFont(Font.BOLD, 24));
-		runButton.setBackground(Color.GREEN);
-		runButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
-		runButton.addActionListener(e -> new GameRunner(engine, game).start());
-		add(runButton, buildLeftConstraint(0, 3));
-
-		installButton = new JButton("Installer");
-		installButton.setFont(getFont().deriveFont(Font.BOLD, 24));
-		installButton.setBackground(Color.RED);
-		installButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
-		installButton.addActionListener(e -> new GameRunner(engine, game).startInstall());
-		add(installButton, buildLeftConstraint(1, 3));
-	}
-
-	private void buildProtonSelect() {
-		JLabel jLabel = new JLabel("Version Proton");
-		add(jLabel, buildLeftConstraint(0, 4));
-
-		JComboBox<Proton> box = new JComboBox<Proton>(engine.getProtons().toArray(s -> new Proton[s]));
-		box
-				.setRenderer((JList<? extends Proton> list, Proton value, int index, boolean isSelected,
-						boolean cellHasFocus) -> new JLabel(value == null ? "--" : value.getName()));
-		box.setSelectedItem(engine.proton(game.getProton()));
-		box.addActionListener(e -> game.setProton(((Proton) box.getSelectedItem()).getName()));
-		add(box, buildLeftConstraint(1, 4));
-	}
-
-	private void buildExecutableSelect() {
-		JLabel jLabel = new JLabel("Executable");
-		add(jLabel, buildLeftConstraint(0, 5));
-
-		runfileButtonChooser = new JButton("Selectionner");
-		runfileButtonChooser.addActionListener(e -> {
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setCurrentDirectory(new File(game.getInstalledFolder()));
-			fileChooser.setFileFilter(new FileFilter() {
-				@Override
-				public boolean accept(File f) {
-					return f.isDirectory() || f.isFile() && f.getName().endsWith(".exe");
-				}
-
-				@Override
-				public String getDescription() {
-					return "Executable (.exe)";
-				}
-			});
-			int result = fileChooser.showOpenDialog(getTopLevelAncestor());
-			if (result == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				game.setRunFile(selectedFile.getAbsolutePath());
-				runfileButtonChooser.setText(selectedFile.getAbsolutePath());
-			}
-		});
-
-		add(runfileButtonChooser, buildLeftConstraint(1, 5));
-	}
-
 	private GridBagConstraints buildHorizontalConstraint(int x, int y) {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = x;
 		gbc.gridy = y;
 		gbc.weightx = 1.0;
+		gbc.weighty = 0;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		return gbc;
 	}
 
-	private GridBagConstraints buildLeftConstraint(int x, int y) {
+	private GridBagConstraints constraint(int x, int y, int anchor) {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = x;
 		gbc.gridy = y;
 		gbc.weightx = 0;
 		gbc.weighty = 0;
-		gbc.anchor = GridBagConstraints.WEST;
+		gbc.anchor = anchor;
 		gbc.fill = GridBagConstraints.NONE;
+		gbc.insets = new Insets(5, 5, 5, 5);
 		return gbc;
 	}
 
@@ -186,11 +115,6 @@ public class GameDetailPanel extends JPanel implements MouseListener, PropertyCh
 	@Override
 	public void mouseExited(MouseEvent e) {
 		e.consume();
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		refresh();
 	}
 
 }
