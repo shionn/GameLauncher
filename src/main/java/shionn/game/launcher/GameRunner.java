@@ -40,6 +40,7 @@ public class GameRunner {
 //					.env("DXVK_NVAPI_ALLOW_OTHER_DRIVERS","1")
 //					.env("LD_PRELOAD", "")
 					.directory()
+					.gamescope()
 					.umuRun()
 					.runFile()
 //					.arg("-locale=en")

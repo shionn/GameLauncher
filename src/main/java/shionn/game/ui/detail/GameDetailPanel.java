@@ -26,7 +26,11 @@ import javax.swing.SwingConstants;
 
 import shionn.game.games.Engine;
 import shionn.game.games.Game;
+import shionn.game.games.GamescopeUpscaleFilterMode;
 import shionn.game.ui.ConditionVisibleLabel;
+import shionn.game.ui.detail.gamescope.GameScopeResolutionComboBoxBox;
+import shionn.game.ui.detail.gamescope.GamescopeEnabledCheckBox;
+import shionn.game.ui.detail.gamescope.GamescopeEnumComboBox;
 
 public class GameDetailPanel extends JPanel implements MouseListener {
 
@@ -42,6 +46,8 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		add(buildSeparator());
 		add(buildMainControlPanel(engine, game));
 		add(buildSeparator());
+		add(buildGamescopePanel(engine, game));
+		// TODO gamemode / gamescope / mangohud
 
 		add(new JLabel(game.getStore() + Optional.ofNullable(game.getGameId()).map(id -> " - " + id).orElse("")));
 	}
@@ -98,6 +104,26 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(left, BorderLayout.WEST);
 		panel.add(right, BorderLayout.EAST);
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		return panel;
+	}
+
+	private Component buildGamescopePanel(Engine engine, Game game) {
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+		panel.add(new GamescopeEnabledCheckBox(game));
+//		panel.add(new GameScopeWindowComboBoxBox(game));
+		panel.add(new ConditionVisibleLabel("Mise à l'échelle", game, Game::isGamescopeEnabled));
+		panel
+				.add(new GameScopeResolutionComboBoxBox(game, game::getGamescopeInResolution,
+						game::setGamescopeInResolution));
+		panel.add(new ConditionVisibleLabel("=>", game, Game::isGamescopeEnabled));
+		panel
+				.add(new GameScopeResolutionComboBoxBox(game, game::getGamescopeOutResolution,
+						game::setGamescopeOutResolution));
+		panel.add(new ConditionVisibleLabel("Filtre", game, Game::isGamescopeEnabled));
+		panel
+				.add(new GamescopeEnumComboBox<>(game, GamescopeUpscaleFilterMode.values(),
+						game::getGamescopeUpscaleFilterMode, game::setGamescopeUpscaleFilterMode));
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		return panel;
 	}

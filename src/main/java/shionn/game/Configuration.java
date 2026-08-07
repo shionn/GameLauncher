@@ -40,4 +40,8 @@ public class Configuration {
 		return getFolder("folder.steam");
 	}
 
+	public String[] gamescopeResolutions() {
+		return props.getProperty("gamescope.resolutions").split(",");
+	}
+
 }

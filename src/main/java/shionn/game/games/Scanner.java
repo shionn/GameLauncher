@@ -24,7 +24,8 @@ public class Scanner {
 	private List<Game> scanInstallers() {
 		List<Game> games = new ArrayList<>();
 		File rootFolder = new File(configuration.instalersFolder());
-		for (File letterFolder : rootFolder.listFiles(pathname ->pathname.isDirectory())) {
+		for (File letterFolder : rootFolder
+				.listFiles(pathname -> pathname.isDirectory() && pathname.getName().endsWith("A"))) {
 			for (File gameFolder : letterFolder.listFiles(pathname ->pathname.isDirectory())) {
 				games
 						.add(Game
@@ -37,7 +38,6 @@ public class Scanner {
 								.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
 								.build());
 			}
-			break;
 		}
 
 		return games;

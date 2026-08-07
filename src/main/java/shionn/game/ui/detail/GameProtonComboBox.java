@@ -17,7 +17,6 @@ public class GameProtonComboBox extends JComboBox<Proton> {
 		setRenderer((JList<? extends Proton> list, Proton value, int index, boolean isSelected,
 				boolean cellHasFocus) -> new JLabel(value == null ? "--" : value.getName()));
 		setSelectedItem(engine.proton(game.getProton()));
-		addActionListener(e ->			game.setProton(((Proton) getSelectedItem()).getName()));
-//		setAlignmentY(0);
+		addActionListener(e -> game.setProton(((Proton) getSelectedItem()).getName()));
 	}
 }

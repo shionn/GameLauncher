@@ -50,6 +50,12 @@ public class GameProcessBuilder {
 		return this;
 	}
 
+	public GameProcessBuilder gamescope() {
+		return arg("gamescope")
+				// .arg("-W").arg("1920").arg("-H").arg("1080")
+				.arg("--");
+	}
+
 	public GameProcessBuilder umuRun() {
 		return arg("umu-run");
 	}
@@ -91,5 +97,6 @@ public class GameProcessBuilder {
 		args.add(arg);
 		return this;
 	}
+
 
 }
