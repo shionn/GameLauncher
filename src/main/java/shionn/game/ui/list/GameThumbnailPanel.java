@@ -4,12 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -57,11 +57,16 @@ public class GameThumbnailPanel extends JPanel {
 			}
 		};
 
-		overlay.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100));
+//		overlay.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 100));
+		overlay.setLayout(new BorderLayout());
+//		overlay.setLayout(new BoxLayout(overlay, BoxLayout.Y_AXIS));
+		overlay.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
 		overlay.setOpaque(false);
 		overlay.setFocusable(true);
 		overlay.requestFocusInWindow();
-		overlay.add(new GameDetailPanel(engine, game));
+//		overlay.add(new GameDetailPanel(engine, game));
+		overlay.add(new GameDetailPanel(engine, game), BorderLayout.NORTH);
+//		overlay.add(Box.createVerticalGlue());
 		overlay.addMouseListener(new MouseListener() {
 
 			@Override

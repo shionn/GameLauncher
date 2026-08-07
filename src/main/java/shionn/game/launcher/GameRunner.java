@@ -45,6 +45,7 @@ public class GameRunner {
 //					.arg("-locale=en")
 					.build();
 			Process process = processBuilder.start();
+			// todo game.setProcess(process) puis rendre la main à l'interface.
 			int exitCode = process.waitFor();
 			process.destroy();
 			System.out.println("Code de retour : " + exitCode);

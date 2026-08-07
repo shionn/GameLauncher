@@ -18,5 +18,6 @@ public class GameProtonComboBox extends JComboBox<Proton> {
 				boolean cellHasFocus) -> new JLabel(value == null ? "--" : value.getName()));
 		setSelectedItem(engine.proton(game.getProton()));
 		addActionListener(e ->			game.setProton(((Proton) getSelectedItem()).getName()));
+//		setAlignmentY(0);
 	}
 }

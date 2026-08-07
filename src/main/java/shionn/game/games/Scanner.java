@@ -37,6 +37,7 @@ public class Scanner {
 								.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
 								.build());
 			}
+			break;
 		}
 
 		return games;
