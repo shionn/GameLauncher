@@ -50,10 +50,41 @@ public class GameProcessBuilder {
 		return this;
 	}
 
+	public GameProcessBuilder feralGamemode() {
+		if (game.isFeralGamemodeEnabled()) {
+			arg("gamemoderun");
+		}
+		return this;
+	}
+
+	public GameProcessBuilder mangohud() {
+		if (game.isMangohudEnabled()) {
+			arg("mangohud");
+		}
+		return this;
+	}
+
 	public GameProcessBuilder gamescope() {
-		return arg("gamescope")
-				// .arg("-W").arg("1920").arg("-H").arg("1080")
-				.arg("--");
+		if (game.isGamescopeEnabled()) {
+			arg("gamescope");
+			Optional.ofNullable(game.getGamescopeWindowMode()).ifPresent(m -> arg("--" + m.name()));
+			Optional
+					.ofNullable(game.getGamescopeInResolution())
+					.map(s -> s.split("x"))
+					.ifPresent(res -> arg("-w").arg(res[0]).arg("-h").arg(res[1]));
+			Optional
+					.ofNullable(game.getGamescopeOutResolution())
+					.map(s -> s.split("x"))
+					.ifPresent(res -> arg("-W").arg(res[0]).arg("-H").arg(res[1]));
+			Optional
+					.ofNullable(game.getGamescopeUpscaleFilterMode())
+					.ifPresent(mode -> arg("--filter").arg(mode.name()));
+			Optional
+					.ofNullable(game.getGamescopeUpscaleScalerMode())
+					.ifPresent(mode -> arg("--scaler").arg(mode.name()));
+			arg("--");
+		}
+		return this;
 	}
 
 	public GameProcessBuilder umuRun() {
@@ -68,6 +99,11 @@ public class GameProcessBuilder {
 		return arg(game.getRunfile());
 	}
 
+	public GameProcessBuilder otherRunArgs() {
+		game.getRunArgs().stream().forEach(this::arg);
+		return this;
+	}
+
 	public ProcessBuilder build() {
 		ProcessBuilder processBuilder = new ProcessBuilder(args.toArray(s -> new String[s]));
 		processBuilder.redirectErrorStream(true);
@@ -75,7 +111,6 @@ public class GameProcessBuilder {
 		processBuilder.environment().putAll(this.env);
 		if (directory) {
 			processBuilder.directory(new File(game.getRunfile()).getParentFile());
-			System.out.println("cd " + new File(game.getRunfile()).getParentFile());
 		}
 
 		StringBuilder command = new StringBuilder();
@@ -97,6 +132,7 @@ public class GameProcessBuilder {
 		args.add(arg);
 		return this;
 	}
+
 
 
 }

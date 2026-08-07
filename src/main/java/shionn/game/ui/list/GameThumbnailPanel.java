@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 
 import shionn.game.games.Engine;
 import shionn.game.games.Game;
-import shionn.game.ui.ImageBackgroundButton;
 import shionn.game.ui.detail.GameDetailPanel;
+import shionn.game.ui.generic.ImageBackgroundButton;
 
 public class GameThumbnailPanel extends JPanel {
 
@@ -57,16 +57,12 @@ public class GameThumbnailPanel extends JPanel {
 			}
 		};
 
-//		overlay.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 100));
 		overlay.setLayout(new BorderLayout());
-//		overlay.setLayout(new BoxLayout(overlay, BoxLayout.Y_AXIS));
 		overlay.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
 		overlay.setOpaque(false);
 		overlay.setFocusable(true);
 		overlay.requestFocusInWindow();
-//		overlay.add(new GameDetailPanel(engine, game));
 		overlay.add(new GameDetailPanel(engine, game), BorderLayout.NORTH);
-//		overlay.add(Box.createVerticalGlue());
 		overlay.addMouseListener(new MouseListener() {
 
 			@Override

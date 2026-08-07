@@ -5,11 +5,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -33,15 +37,21 @@ public class Game implements Comparable<Game> {
 	private String installedFolder;
 	private String proton;
 	private String runfile;
+	@Default
+	private List<String> runArgs = new ArrayList<>();
 	@Setter
 	private String gameId;
 	@Setter
 	private String store;
 
+	private boolean mangohudEnabled;
+	private boolean feralGamemodeEnabled;
 	private boolean gamescopeEnabled;
+	private GamescopeWindowMode gamescopeWindowMode;
 	private String gamescopeInResolution;
 	private String gamescopeOutResolution;
 	private GamescopeUpscaleFilterMode gamescopeUpscaleFilterMode;
+	private GamescopeUpscaleScalerMode gamescopeUpscaleScalerMode;
 
 	@Override
 	public int compareTo(Game o) {
@@ -80,6 +90,20 @@ public class Game implements Comparable<Game> {
 		saveConfiguration();
 	}
 
+	public void setMangohudEnabled(boolean mangohudEnabled) {
+		boolean old = this.mangohudEnabled;
+		this.mangohudEnabled = mangohudEnabled;
+		pcs.firePropertyChange("mangohudEnabled", old, this.mangohudEnabled);
+		saveConfiguration();
+	}
+
+	public void setFeralGamemodeEnabled(boolean feralGamemodeEnabled) {
+		boolean old = this.feralGamemodeEnabled;
+		this.feralGamemodeEnabled = feralGamemodeEnabled;
+		pcs.firePropertyChange("feralGamemodeEnabled", old, this.feralGamemodeEnabled);
+		saveConfiguration();
+	}
+
 	public void setGamescopeEnabled(boolean gamescopeEnabled) {
 		boolean old = this.gamescopeEnabled;
 		this.gamescopeEnabled = gamescopeEnabled;
@@ -108,6 +132,27 @@ public class Game implements Comparable<Game> {
 		saveConfiguration();
 	}
 
+	public void setGamescopeWindowMode(GamescopeWindowMode gamescopeWindowMode) {
+		GamescopeWindowMode old = this.gamescopeWindowMode;
+		this.gamescopeWindowMode = gamescopeWindowMode;
+		pcs.firePropertyChange("gamescopeWindowMode", old, this.gamescopeWindowMode);
+		saveConfiguration();
+	}
+
+	public void setGamescopeUpscaleScalerMode(GamescopeUpscaleScalerMode gamescopeUpscaleScalerMode) {
+		GamescopeUpscaleScalerMode old = this.gamescopeUpscaleScalerMode;
+		this.gamescopeUpscaleScalerMode = gamescopeUpscaleScalerMode;
+		pcs.firePropertyChange("gamescopeUpscaleScalerMode", old, this.gamescopeUpscaleScalerMode);
+		saveConfiguration();
+	}
+
+	public void setRunArgs(List<String> runArgs) {
+		List<String> old = this.runArgs;
+		this.runArgs = runArgs;
+		pcs.firePropertyChange("runArgs", old, this.runArgs);
+		saveConfiguration();
+	}
+
 	public void loadConfiguration() {
 		File file = new File(installedFolder + "/configuration.properties");
 		if (file.exists())
@@ -116,12 +161,23 @@ public class Game implements Comparable<Game> {
 				props.load(reader);
 				proton = props.getProperty("proton", null);
 				runfile = props.getProperty("runfile", null);
-				gamescopeEnabled = Boolean.parseBoolean(props.getProperty("gameScopeEnable", "false"));
+				Arrays.stream(props.getProperty("runArgs", "").split(",")).forEach(runArgs::add);
+				mangohudEnabled = Boolean.parseBoolean(props.getProperty("mangohudEnabled", "false"));
+				feralGamemodeEnabled = Boolean.parseBoolean(props.getProperty("feralGamemodeEnabled", "false"));
+				gamescopeEnabled = Boolean.parseBoolean(props.getProperty("gamescopeEnabled", "false"));
 				gamescopeInResolution = props.getProperty("gamescopeInResolution", null);
 				gamescopeOutResolution = props.getProperty("gamescopeOutResolution", null);
 				gamescopeUpscaleFilterMode = Optional
 						.ofNullable(props.getProperty("gamescopeUpscaleFilterMode", null))
 						.map(GamescopeUpscaleFilterMode::valueOf)
+						.orElse(null);
+				gamescopeWindowMode = Optional
+						.ofNullable(props.getProperty("gamescopeWindowMode", null))
+						.map(GamescopeWindowMode::valueOf)
+						.orElse(null);
+				gamescopeUpscaleScalerMode = Optional
+						.ofNullable(props.getProperty("gamescopeUpscaleScalerMode", null))
+						.map(GamescopeUpscaleScalerMode::valueOf)
 						.orElse(null);
 			} catch (IOException e) {
 				throw new IllegalStateException(e);
@@ -133,12 +189,19 @@ public class Game implements Comparable<Game> {
 			Properties props = new Properties();
 			Optional.ofNullable(proton).ifPresent(v -> props.put("proton", v));
 			Optional.ofNullable(runfile).ifPresent(v -> props.put("runfile", v));
+			props.put("mangohudEnabled", Boolean.toString(mangohudEnabled));
+			props.put("feralGamemodeEnabled", Boolean.toString(feralGamemodeEnabled));
 			props.put("gamescopeEnabled", Boolean.toString(gamescopeEnabled));
 			Optional.ofNullable(gamescopeInResolution).ifPresent(v -> props.put("gamescopeInResolution", v));
 			Optional.ofNullable(gamescopeOutResolution).ifPresent(v -> props.put("gamescopeOutResolution", v));
 			Optional
 					.ofNullable(gamescopeUpscaleFilterMode)
 					.ifPresent(v -> props.put("gamescopeUpscaleFilterMode", v.name()));
+			Optional.ofNullable(gamescopeWindowMode).ifPresent(v -> props.put("gamescopeWindowMode", v.name()));
+			Optional
+					.ofNullable(gamescopeUpscaleScalerMode)
+					.ifPresent(v -> props.put("gamescopeUpscaleScalerMode", v.name()));
+			props.put("runArgs", runArgs.stream().collect(Collectors.joining(",")));
 			try {
 				props.store(new FileWriter(installedFolder + "/configuration.properties"), "Save " + name);
 			} catch (IOException e) {

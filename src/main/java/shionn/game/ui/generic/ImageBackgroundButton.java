@@ -1,4 +1,4 @@
-package shionn.game.ui;
+package shionn.game.ui.generic;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

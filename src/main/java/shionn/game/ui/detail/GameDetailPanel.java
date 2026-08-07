@@ -27,10 +27,12 @@ import javax.swing.SwingConstants;
 import shionn.game.games.Engine;
 import shionn.game.games.Game;
 import shionn.game.games.GamescopeUpscaleFilterMode;
-import shionn.game.ui.ConditionVisibleLabel;
+import shionn.game.games.GamescopeUpscaleScalerMode;
+import shionn.game.games.GamescopeWindowMode;
 import shionn.game.ui.detail.gamescope.GameScopeResolutionComboBoxBox;
-import shionn.game.ui.detail.gamescope.GamescopeEnabledCheckBox;
 import shionn.game.ui.detail.gamescope.GamescopeEnumComboBox;
+import shionn.game.ui.generic.ConditionVisibleLabel;
+import shionn.game.ui.generic.SimpleCheckBox;
 
 public class GameDetailPanel extends JPanel implements MouseListener {
 
@@ -46,8 +48,13 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		add(buildSeparator());
 		add(buildMainControlPanel(engine, game));
 		add(buildSeparator());
-		add(buildGamescopePanel(engine, game));
-		// TODO gamemode / gamescope / mangohud
+		add(buildMangohudPanel(engine, game));
+		add(buildSeparator());
+		add(buildGamescopePanel(game));
+		add(buildSeparator());
+		add(buildGameArgumentsPanel(game));
+		add(buildSeparator());
+		// TODO gamemode /
 
 		add(new JLabel(game.getStore() + Optional.ofNullable(game.getGameId()).map(id -> " - " + id).orElse("")));
 	}
@@ -108,10 +115,22 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		return panel;
 	}
 
-	private Component buildGamescopePanel(Engine engine, Game game) {
+	private Component buildMangohudPanel(Engine engine, Game game) {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-		panel.add(new GamescopeEnabledCheckBox(game));
-//		panel.add(new GameScopeWindowComboBoxBox(game));
+		panel.add(new SimpleCheckBox("Activer Mangohud", game::isMangohudEnabled, game::setMangohudEnabled));
+		panel
+				.add(new SimpleCheckBox("Activer Feral Gamemode", game::isFeralGamemodeEnabled,
+						game::setFeralGamemodeEnabled));
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		return panel;
+	}
+	private Component buildGamescopePanel(Game game) {
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+		panel.add(new SimpleCheckBox("Gamescope", game::isGamescopeEnabled, game::setGamescopeEnabled));
+		panel.add(new ConditionVisibleLabel("Fenêtre", game, Game::isGamescopeEnabled));
+		panel
+				.add(new GamescopeEnumComboBox<>(game, GamescopeWindowMode.values(), game::getGamescopeWindowMode,
+						game::setGamescopeWindowMode));
 		panel.add(new ConditionVisibleLabel("Mise à l'échelle", game, Game::isGamescopeEnabled));
 		panel
 				.add(new GameScopeResolutionComboBoxBox(game, game::getGamescopeInResolution,
@@ -124,6 +143,18 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		panel
 				.add(new GamescopeEnumComboBox<>(game, GamescopeUpscaleFilterMode.values(),
 						game::getGamescopeUpscaleFilterMode, game::setGamescopeUpscaleFilterMode));
+		panel.add(new ConditionVisibleLabel("Ratio", game, Game::isGamescopeEnabled));
+		panel
+				.add(new GamescopeEnumComboBox<>(game, GamescopeUpscaleScalerMode.values(),
+						game::getGamescopeUpscaleScalerMode, game::setGamescopeUpscaleScalerMode));
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		return panel;
+	}
+
+	private Component buildGameArgumentsPanel(Game game) {
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+		panel.add(new JLabel("Autre options"));
+		panel.add(new GameArgCheckBox(game, "-locale=fr"));
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		return panel;
 	}

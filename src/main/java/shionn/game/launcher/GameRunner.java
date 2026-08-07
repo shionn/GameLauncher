@@ -30,20 +30,17 @@ public class GameRunner {
 					.store()
 					.gameId()
 					.logs()
-//					.env("STEAM_COMPAT_INSTALL_PATH", new File(game.getRunfile()).getParentFile().getAbsolutePath())
-//					.env("STEAM_COMPAT_CLIENT_INSTALL_PATH", "/home/shionn/.steam/steam")
-//					.env("STEAM_COMPAT_DATA_PATH", game.getInstalledFolder())
-
-//					.env("UMU_STEAM_GAME_ID", "heroic-0")
 //					.env("WINE_FULLSCREEN_FSR", "0")
 //					.env("PROTON_ENABLE_NVAPI", "1")
 //					.env("DXVK_NVAPI_ALLOW_OTHER_DRIVERS","1")
 //					.env("LD_PRELOAD", "")
 					.directory()
+					.feralGamemode()
 					.gamescope()
+					.mangohud()
 					.umuRun()
 					.runFile()
-//					.arg("-locale=en")
+					.otherRunArgs()
 					.build();
 			Process process = processBuilder.start();
 			// todo game.setProcess(process) puis rendre la main à l'interface.
