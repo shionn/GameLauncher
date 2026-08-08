@@ -23,11 +23,12 @@ Il faut que les jeux soit organisé sur ce format :
 |  |--Alan Wake
 |  |  |-- setup<...>.exe et setup<...>.bin d'installation
 |  |  |-- un .jpg
-|  |  |-- umu-<gameid>.gameid pour les protonfixe [umu-database](https://github.com/Open-Wine-Components/umu-database) et [umu-protonfixes](https://github.com/Open-Wine-Components/umu-protonfixes)
+|  |  |-- umu-<gameid>.gameid pour les protonfixes
 |  |  |-- gog.store
 |
 ~~~
 
+Pour trouver un protonfixe :  [umu-database](https://github.com/Open-Wine-Components/umu-database) et [umu-protonfixes](https://github.com/Open-Wine-Components/umu-protonfixes)
 
 
 # Truc de dev pour note
