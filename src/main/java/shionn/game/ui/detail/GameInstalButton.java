@@ -28,6 +28,10 @@ public class GameInstalButton extends JButton implements PropertyChangeListener 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		setVisible(game.isInstallable());
+		if (game.getInstalers().isEmpty()) {
+			setEnabled(false);
+			setText("Aucun instaler disponible");
+		}
 		revalidate();
 	}
 

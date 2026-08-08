@@ -20,7 +20,7 @@ public class GameListPanel extends JPanel {
 	private static final long serialVersionUID = -5274587669308226777L;
 
 	public GameListPanel(Engine engine) {
-//		buildWithGrid(engine);
+		// buildWithGrid(engine);
 		buildWithGridMapLayout(engine);
 	}
 
@@ -46,6 +46,7 @@ public class GameListPanel extends JPanel {
 				gbc.gridy = y;
 				gbc.gridwidth = GridBagConstraints.REMAINDER;
 				gbc.fill = GridBagConstraints.HORIZONTAL;
+				gbc.anchor = GridBagConstraints.WEST;
 				gbc.insets = new Insets(5, 50, 0, 10);
 
 				label = new JLabel(game.getLetter(), SwingConstants.LEFT);
@@ -88,11 +89,10 @@ public class GameListPanel extends JPanel {
 		int colCount = Math.max(1, getWidth() / 250);
 		int x = 0;
 		int y = 0;
-		Component[] components = getComponents();
 		GridBagLayout layout = (GridBagLayout) getLayout();
-		for (Component component : components) {
+		for (Component component : getComponents()) {
 			GridBagConstraints constraints = layout.getConstraints(component);
-			if (component instanceof GameThumbnailPanel thumbnail) {
+			if (component instanceof GameThumbnailPanel thumbnail && thumbnail.isVisible()) {
 				constraints.gridx = x;
 				constraints.gridy = y;
 				layout.setConstraints(thumbnail, constraints);

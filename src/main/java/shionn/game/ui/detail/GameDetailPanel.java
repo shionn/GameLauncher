@@ -82,7 +82,7 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 			});
 			label.setAlignmentX(.5f);
 			label.setMaximumSize(new Dimension(Integer.MAX_VALUE, 400));
-			label.setPreferredSize(new Dimension(1000, 400));
+			label.setPreferredSize(new Dimension(1000, 300));
 			return label;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);

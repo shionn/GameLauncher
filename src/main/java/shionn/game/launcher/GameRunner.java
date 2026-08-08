@@ -70,15 +70,28 @@ public class GameRunner {
 					.umuRun()
 					.instaler()
 					.build();
-			int exitCode = processBuilder.start().waitFor();
-			if (exitCode == 0) {
-				game.setInstalledFolder(configuration.gamesFolder() + game.getName());
-				game.setInstalled(true);
-			} else {
-				FileUtils.deleteDirectory(new File(configuration.gamesFolder() + game.getName()));
-			}
-			System.out.println("Code de retour : " + exitCode);
-		} catch (IOException | InterruptedException e) {
+			Process process = processBuilder.start();
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						int exitCode = process.waitFor();
+						System.out.println("Instal exit code " + exitCode);
+						if (exitCode == 0) {
+							game.setInstalledFolder(configuration.gamesFolder() + game.getName());
+							game.setInstalled(true);
+						} else {
+							FileUtils.deleteDirectory(new File(configuration.gamesFolder() + game.getName()));
+						}
+						process.destroy();
+						game.setProcess(null);
+					} catch (InterruptedException | IOException e) {
+						throw new IllegalStateException(e);
+					}
+				}
+			}).start();
+			game.setProcess(process);
+		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
 

@@ -23,8 +23,8 @@ public class ProcessLogTextArea extends JTextArea implements PropertyChangeListe
 		this.game = game;
 		setVisible(game.getProcess() != null);
 		game.getPcs().addPropertyChangeListener(this);
-		setMaximumSize(new Dimension(Integer.MAX_VALUE, 400));
-		setPreferredSize(new Dimension(1000, 400));
+		setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+		setPreferredSize(new Dimension(1000, 200));
 		setAutoscrolls(true);
 	}
 

@@ -43,6 +43,11 @@ public class GameThumbnailPanel extends JPanel {
 		setPreferredSize(new Dimension(200, 180));
 		setMinimumSize(new Dimension(200, 180));
 
+		engine
+				.getPcs()
+				.addPropertyChangeListener(
+						evt -> setVisible(game.isInstalled() || !engine.isDisplayInstalledGameOnly()));
+
 	}
 
 	private void openGame() {
@@ -106,6 +111,10 @@ public class GameThumbnailPanel extends JPanel {
 		overlay.revalidate();
 		overlay.repaint();
 
+	}
+
+	public Game getGame() {
+		return game;
 	}
 
 }

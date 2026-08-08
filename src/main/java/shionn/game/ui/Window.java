@@ -1,8 +1,10 @@
 package shionn.game.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -51,14 +53,22 @@ public class Window {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		panel.add(buildScrollGamePanel(), BorderLayout.CENTER);
+		panel.add(buildBottomControlPanel(), BorderLayout.SOUTH);
 		return panel;
 	}
-
 	private JScrollPane buildScrollGamePanel() {
 		JScrollPane panel = new JScrollPane(buildGameListPanel(), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panel.setBorder(BorderFactory.createEmptyBorder());
 		panel.getVerticalScrollBar().setUnitIncrement(30);
+		return panel;
+	}
+
+	private Component buildBottomControlPanel() {
+		JCheckBox checkBox = new JCheckBox("Installé uniquement");
+		checkBox.addActionListener(e -> engine.setDisplayInstalledGameOnly(checkBox.isSelected()));
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(checkBox, BorderLayout.EAST);
 		return panel;
 	}
 
