@@ -11,7 +11,7 @@ public class GameKillButton extends JButton {
 		super("Stopper");
 		setVisible(game.getProcess() != null);
 		addActionListener(e -> {
-			game.getProcess().destroyForcibly();
+			game.getProcess().destroy();
 			game.setProcess(null);
 		});
 		game.getPcs().addPropertyChangeListener(evt -> setVisible(game.getProcess() != null));

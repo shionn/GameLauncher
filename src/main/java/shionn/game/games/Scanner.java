@@ -44,7 +44,7 @@ public class Scanner {
 
 	private String retreiveGameId(File gameFolder) {
 		return Arrays
-				.stream(gameFolder.listFiles(p -> p.getName().endsWith(".umu")))
+				.stream(gameFolder.listFiles(p -> p.getName().endsWith(".gameid")))
 				.map(p -> p.getName().replace(".umu", ""))
 				.findAny()
 				.orElse(null);

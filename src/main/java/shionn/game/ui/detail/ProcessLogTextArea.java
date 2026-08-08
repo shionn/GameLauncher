@@ -43,7 +43,8 @@ public class ProcessLogTextArea extends JTextArea implements PropertyChangeListe
 					}
 					stdoutThread = null;
 				} catch (IOException e) {
-					throw new IllegalStateException(e);
+					System.out.println("Cecia arrive lors que le process est kill");
+					e.printStackTrace();
 				}
 			});
 			stdoutThread.setDaemon(true);

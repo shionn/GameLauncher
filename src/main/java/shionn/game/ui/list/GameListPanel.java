@@ -20,6 +20,12 @@ public class GameListPanel extends JPanel {
 	private static final long serialVersionUID = -5274587669308226777L;
 
 	public GameListPanel(Engine engine) {
+//		buildWithGrid(engine);
+		buildWithGridMapLayout(engine);
+	}
+
+
+	private void buildWithGridMapLayout(Engine engine) {
 		GridBagLayout layout = new GridBagLayout();
 		setLayout(layout);
 
@@ -80,7 +86,6 @@ public class GameListPanel extends JPanel {
 
 	private void reorganize() {
 		int colCount = Math.max(1, getWidth() / 250);
-//		System.out.println("resized " + colCount);
 		int x = 0;
 		int y = 0;
 		Component[] components = getComponents();
@@ -119,5 +124,31 @@ public class GameListPanel extends JPanel {
 		repaint();
 	}
 
+//	private void buildWithGrid(Engine engine) {
+//		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+//		JLabel label = null;
+//		JPanel gamePanel = new JPanel();
+//		for (Game game : engine.getGames()) {
+//			if (label == null || !label.getText().equals(game.getLetter())) {
+//				label = new JLabel(game.getLetter(), SwingConstants.LEFT);
+//				label.setBorder(BorderFactory.createEmptyBorder(5, 50, 0, 10));
+//				label.setFont(label.getFont().deriveFont(Font.BOLD, 24));
+//				add(label);
+//				JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+//				separator.setBorder(BorderFactory.createEmptyBorder(0, 10, 5, 10));
+//				add(separator);
+//
+//				gamePanel = new JPanel();
+//				FlowLayout layout = new FlowLayout();
+//				gamePanel.setLayout(layout);
+////				gamePanel.setLayout(new BoxLayout(gamePanel, BoxLayout.X_AXIS));
+//				add(gamePanel);
+//			}
+//			GameThumbnailPanel panel = new GameThumbnailPanel(engine, game);
+//			panel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+//			gamePanel.add(panel);
+//
+//		}
+//	}
 
 }
