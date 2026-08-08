@@ -43,6 +43,7 @@ public class Game implements Comparable<Game> {
 	private String gameId;
 	@Setter
 	private String store;
+	private Process process;
 
 	private boolean mangohudEnabled;
 	private boolean feralGamemodeEnabled;
@@ -151,6 +152,12 @@ public class Game implements Comparable<Game> {
 		this.runArgs = runArgs;
 		pcs.firePropertyChange("runArgs", old, this.runArgs);
 		saveConfiguration();
+	}
+
+	public void setProcess(Process process) {
+		Process old = this.process;
+		this.process = process;
+		pcs.firePropertyChange("process", old, this.process);
 	}
 
 	public void loadConfiguration() {

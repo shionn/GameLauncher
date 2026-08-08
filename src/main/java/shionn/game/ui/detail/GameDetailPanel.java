@@ -54,10 +54,12 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		add(buildSeparator());
 		add(buildGameArgumentsPanel(game));
 		add(buildSeparator());
+		add(buildLog(game));
 		// TODO gamemode /
 
 		add(new JLabel(game.getStore() + Optional.ofNullable(game.getGameId()).map(id -> " - " + id).orElse("")));
 	}
+
 
 	private JLabel buildImageTitle(Game game) {
 		try {
@@ -99,7 +101,6 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 
 	private Component buildMainControlPanel(Engine engine, Game game) {
 		JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-//		left.setLayout(new BoxLayout(left, BoxLayout.X_AXIS));
 		left.add(new JLabel("Version Proton"));
 		left.add(new GameProtonComboBox(engine, game));
 		left.add(new ConditionVisibleLabel("Executable", game, Game::isInstalled));
@@ -108,6 +109,7 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		right.setLayout(new BoxLayout(right, BoxLayout.X_AXIS));
 		right.add(new GameInstalButton(engine, game));
 		right.add(new GameRunButton(engine, game));
+		right.add(new GameKillButton(game));
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(left, BorderLayout.WEST);
 		panel.add(right, BorderLayout.EAST);
@@ -155,6 +157,18 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		panel.add(new JLabel("Autre options"));
 		panel.add(new GameArgCheckBox(game, "-locale=fr"));
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		return panel;
+	}
+
+	private JPanel buildLog(Game game) {
+		ProcessLogTextArea textArea = new ProcessLogTextArea(game);
+//		JScrollPane scrollPane = new JScrollPane(textArea);
+//		scrollPane.setAutoscrolls(true);
+//		textArea.setScrollPane(scrollPane);
+
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(textArea, BorderLayout.CENTER);
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		return panel;
 	}

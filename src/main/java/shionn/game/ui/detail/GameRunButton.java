@@ -20,13 +20,13 @@ public class GameRunButton extends JButton implements PropertyChangeListener {
 //		setFont(getFont().deriveFont(Font.BOLD, 24));
 //		setBackground(Color.GREEN);
 //		setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
-		setVisible(game.isRunnable());
+		setVisible(game.isRunnable() && game.getProcess() == null);
 		game.getPcs().addPropertyChangeListener(this);
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		setVisible(game.isRunnable());
+		setVisible(game.isRunnable() && game.getProcess() == null);
 		revalidate();
 	}
 

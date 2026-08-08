@@ -43,10 +43,19 @@ public class GameRunner {
 					.otherRunArgs()
 					.build();
 			Process process = processBuilder.start();
-			// todo game.setProcess(process) puis rendre la main à l'interface.
-			int exitCode = process.waitFor();
-			process.destroy();
-			System.out.println("Code de retour : " + exitCode);
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						process.waitFor();
+						process.destroy();
+						game.setProcess(null);
+					} catch (InterruptedException e) {
+						throw new IllegalStateException(e);
+					}
+				}
+			}).start();
+			game.setProcess(process);
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
