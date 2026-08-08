@@ -21,7 +21,7 @@ public class GameInstalButton extends JButton implements PropertyChangeListener 
 //		setBackground(Color.RED);
 //		setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
 		addActionListener(e -> new GameRunner(engine, game).startInstall());
-		setVisible(false);
+		setVisible(game.isInstallable());
 		game.getPcs().addPropertyChangeListener(this);
 	}
 

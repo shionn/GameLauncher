@@ -67,6 +67,8 @@ public class GameRunner {
 			ProcessBuilder processBuilder = new GameProcessBuilder(engine, game)
 					.wineprefix()
 					.protonPath()
+					.store()
+					.gameId()
 					.umuRun()
 					.instaler()
 					.build();
@@ -94,6 +96,10 @@ public class GameRunner {
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
+
+	}
+
+	private void instalSteamBackup() {
 
 	}
 

@@ -50,7 +50,8 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		add(buildSeparator());
 		add(buildMangohudPanel(engine, game));
 		add(buildSeparator());
-		add(buildGamescopePanel(game));
+		add(buildGamescopePanel1(game));
+		add(buildGamescopePanel2(game));
 		add(buildSeparator());
 		add(buildGameArgumentsPanel(game));
 		add(buildSeparator());
@@ -119,20 +120,29 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 
 	private Component buildMangohudPanel(Engine engine, Game game) {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-		panel.add(new SimpleCheckBox("Activer Mangohud", game::isMangohudEnabled, game::setMangohudEnabled));
+		panel.add(new SimpleCheckBox("Activer Mangohud", game, game::isMangohudEnabled, game::setMangohudEnabled));
 		panel
-				.add(new SimpleCheckBox("Activer Feral Gamemode", game::isFeralGamemodeEnabled,
+				.add(new SimpleCheckBox("Activer Feral Gamemode", game, game::isFeralGamemodeEnabled,
 						game::setFeralGamemodeEnabled));
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		return panel;
 	}
-	private Component buildGamescopePanel(Game game) {
+	private Component buildGamescopePanel1(Game game) {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-		panel.add(new SimpleCheckBox("Gamescope", game::isGamescopeEnabled, game::setGamescopeEnabled));
+		panel.add(new SimpleCheckBox("Gamescope", game, game::isGamescopeEnabled, game::setGamescopeEnabled));
 		panel.add(new ConditionVisibleLabel("Fenêtre", game, Game::isGamescopeEnabled));
 		panel
 				.add(new GamescopeEnumComboBox<>(game, GamescopeWindowMode.values(), game::getGamescopeWindowMode,
 						game::setGamescopeWindowMode));
+		panel
+				.add(new SimpleCheckBox("Forcer le curseur relatif", game, game::isGamescopeForceGrapCursor,
+						game::setGamescopeForceGrapCursor, game::isGamescopeEnabled));
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		return panel;
+	}
+
+	private Component buildGamescopePanel2(Game game) {
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		panel.add(new ConditionVisibleLabel("Mise à l'échelle", game, Game::isGamescopeEnabled));
 		panel
 				.add(new GameScopeResolutionComboBoxBox(game, game::getGamescopeInResolution,

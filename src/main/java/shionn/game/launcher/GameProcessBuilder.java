@@ -82,6 +82,9 @@ public class GameProcessBuilder {
 			Optional
 					.ofNullable(game.getGamescopeUpscaleScalerMode())
 					.ifPresent(mode -> arg("--scaler").arg(mode.name()));
+			if (game.isGamescopeForceGrapCursor()) {
+				arg("--force-grab-cursor");
+			}
 			arg("--");
 		}
 		return this;

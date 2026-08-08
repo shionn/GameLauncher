@@ -53,6 +53,7 @@ public class Game implements Comparable<Game> {
 	private String gamescopeOutResolution;
 	private GamescopeUpscaleFilterMode gamescopeUpscaleFilterMode;
 	private GamescopeUpscaleScalerMode gamescopeUpscaleScalerMode;
+	private boolean gamescopeForceGrapCursor;
 
 	@Override
 	public int compareTo(Game o) {
@@ -147,6 +148,13 @@ public class Game implements Comparable<Game> {
 		saveConfiguration();
 	}
 
+	public void setGamescopeForceGrapCursor(boolean gamescopeForceGrapCursor) {
+		boolean old = this.gamescopeForceGrapCursor;
+		this.gamescopeForceGrapCursor = gamescopeForceGrapCursor;
+		pcs.firePropertyChange("gamescopeForceGrapCursor", old, this.gamescopeForceGrapCursor);
+		saveConfiguration();
+	}
+
 	public void setRunArgs(List<String> runArgs) {
 		List<String> old = this.runArgs;
 		this.runArgs = runArgs;
@@ -186,6 +194,7 @@ public class Game implements Comparable<Game> {
 						.ofNullable(props.getProperty("gamescopeUpscaleScalerMode", null))
 						.map(GamescopeUpscaleScalerMode::valueOf)
 						.orElse(null);
+				gamescopeForceGrapCursor = Boolean.parseBoolean(props.getProperty("gamescopeForceGrapCursor", "false"));
 			} catch (IOException e) {
 				throw new IllegalStateException(e);
 			}
@@ -208,6 +217,7 @@ public class Game implements Comparable<Game> {
 			Optional
 					.ofNullable(gamescopeUpscaleScalerMode)
 					.ifPresent(v -> props.put("gamescopeUpscaleScalerMode", v.name()));
+			props.put("gamescopeForceGrapCursor", Boolean.toString(gamescopeForceGrapCursor));
 			props.put("runArgs", runArgs.stream().collect(Collectors.joining(",")));
 			try {
 				props.store(new FileWriter(installedFolder + "/configuration.properties"), "Save " + name);
