@@ -52,6 +52,10 @@ public class GameRunfileButton extends JButton implements PropertyChangeListener
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		setVisible(game.isInstalled());
+		setText(Optional
+				.ofNullable(game.getRunfile())
+				.map(f -> f.substring(f.lastIndexOf('/') + 1))
+				.orElse("Séléctionner"));
 		revalidate();
 	}
 

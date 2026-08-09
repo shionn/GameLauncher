@@ -31,6 +31,8 @@ public class Game implements Comparable<Game> {
 	@Setter
 	private List<String> instalers;
 	@Setter
+	private List<String> archives;
+	@Setter
 	private List<String> instalersImgs;
 	private boolean installed;
 	@Setter
@@ -39,6 +41,8 @@ public class Game implements Comparable<Game> {
 	private String runfile;
 	@Default
 	private List<String> runArgs = new ArrayList<>();
+	@Default
+	private List<String> envArgs = new ArrayList<>();
 	@Setter
 	private String gameId;
 	@Setter
@@ -69,7 +73,14 @@ public class Game implements Comparable<Game> {
 	}
 
 	public boolean isInstallable() {
-		return proton != null && !isInstalled();
+		if (store == null) {
+			return false;
+		}
+		return switch(store) {
+		case "gog" -> proton != null && !instalers.isEmpty();
+		case "steam" -> proton != null && !archives.isEmpty();
+		default -> false;
+		};
 	}
 
 	public void setProton(String proton) {
@@ -162,6 +173,13 @@ public class Game implements Comparable<Game> {
 		saveConfiguration();
 	}
 
+	public void setEnvArgs(List<String> envArgs) {
+		List<String> old = this.envArgs;
+		this.envArgs = envArgs;
+		pcs.firePropertyChange("envArgs", old, this.envArgs);
+		saveConfiguration();
+	}
+
 	public void setProcess(Process process) {
 		Process old = this.process;
 		this.process = process;
@@ -177,6 +195,7 @@ public class Game implements Comparable<Game> {
 				proton = props.getProperty("proton", null);
 				runfile = props.getProperty("runfile", null);
 				Arrays.stream(props.getProperty("runArgs", "").split(",")).forEach(runArgs::add);
+				Arrays.stream(props.getProperty("envArgs", "").split(",")).forEach(envArgs::add);
 				mangohudEnabled = Boolean.parseBoolean(props.getProperty("mangohudEnabled", "false"));
 				feralGamemodeEnabled = Boolean.parseBoolean(props.getProperty("feralGamemodeEnabled", "false"));
 				gamescopeEnabled = Boolean.parseBoolean(props.getProperty("gamescopeEnabled", "false"));
@@ -219,6 +238,7 @@ public class Game implements Comparable<Game> {
 					.ifPresent(v -> props.put("gamescopeUpscaleScalerMode", v.name()));
 			props.put("gamescopeForceGrapCursor", Boolean.toString(gamescopeForceGrapCursor));
 			props.put("runArgs", runArgs.stream().collect(Collectors.joining(",")));
+			props.put("envArgs", envArgs.stream().collect(Collectors.joining(",")));
 			try {
 				props.store(new FileWriter(installedFolder + "/configuration.properties"), "Save " + name);
 			} catch (IOException e) {

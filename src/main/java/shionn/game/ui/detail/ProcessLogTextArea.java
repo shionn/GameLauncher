@@ -17,7 +17,6 @@ public class ProcessLogTextArea extends JTextArea implements PropertyChangeListe
 
 	private static final long serialVersionUID = 5027249346655556789L;
 	private Game game;
-	private Thread stdoutThread;
 
 	public ProcessLogTextArea(Game game) {
 		this.game = game;
@@ -33,18 +32,16 @@ public class ProcessLogTextArea extends JTextArea implements PropertyChangeListe
 		Process process = game.getProcess();
 		setVisible(game.getProcess() != null);
 		setEditable(false);
-		if (game.getProcess() != null && stdoutThread == null) {
-			stdoutThread = new Thread(() -> {
+		if (game.getProcess() != null && "process".equals(evt.getPropertyName())) {
+			Thread stdoutThread = new Thread(() -> {
 				try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
 					String line;
 					while ((line = reader.readLine()) != null) {
 						System.out.println(line);
 						appendToTextArea(line);
 					}
-					stdoutThread = null;
 				} catch (IOException e) {
-					System.out.println("Cecia arrive lors que le process est kill");
-					e.printStackTrace();
+					// NOTHING
 				}
 			});
 			stdoutThread.setDaemon(true);

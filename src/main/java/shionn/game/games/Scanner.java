@@ -16,12 +16,12 @@ public class Scanner {
 
 	private List<Game> scanGames() {
 		List<Game> games = new ArrayList<>();
-		games.addAll(scanInstallers());
+		games.addAll(scanInstalFolders());
 		games = checkInstalled(games);
 		return games.stream().sorted().toList();
 	}
 
-	private List<Game> scanInstallers() {
+	private List<Game> scanInstalFolders() {
 		List<Game> games = new ArrayList<>();
 		File rootFolder = new File(configuration.instalersFolder());
 		for (File letterFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
@@ -34,6 +34,7 @@ public class Scanner {
 								.gameId(retreiveGameId(gameFolder))
 								.store(retreiveStore(gameFolder))
 								.instalers(listAbsolutePath(gameFolder, ".exe"))
+								.archives(listAbsolutePath(gameFolder, ".tar.gz"))
 								.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
 								.build());
 			}

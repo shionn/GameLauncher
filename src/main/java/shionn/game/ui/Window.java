@@ -60,7 +60,7 @@ public class Window {
 		JScrollPane panel = new JScrollPane(buildGameListPanel(), JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panel.setBorder(BorderFactory.createEmptyBorder());
-		panel.getVerticalScrollBar().setUnitIncrement(30);
+		panel.getVerticalScrollBar().setUnitIncrement(40);
 		return panel;
 	}
 

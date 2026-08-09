@@ -45,6 +45,11 @@ public class GameProcessBuilder {
 		return Optional.ofNullable(game.getGameId()).map(id -> env("GAMEID", id)).orElse(this);
 	}
 
+	public GameProcessBuilder otherEnvs() {
+		game.getEnvArgs().stream().map(s -> s.split("=")).forEach(e -> env(e[0], e[1]));
+		return this;
+	}
+
 	public GameProcessBuilder directory() {
 		this.directory = true;
 		return this;
@@ -102,6 +107,10 @@ public class GameProcessBuilder {
 		return arg(game.getRunfile());
 	}
 
+	public GameProcessBuilder winetricks() {
+		return arg("winetricks");
+	}
+
 	public GameProcessBuilder otherRunArgs() {
 		game.getRunArgs().stream().forEach(this::arg);
 		return this;
@@ -135,6 +144,7 @@ public class GameProcessBuilder {
 		args.add(arg);
 		return this;
 	}
+
 
 
 

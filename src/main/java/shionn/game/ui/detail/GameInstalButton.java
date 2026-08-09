@@ -17,21 +17,18 @@ public class GameInstalButton extends JButton implements PropertyChangeListener 
 	public GameInstalButton(Engine engine, Game game) {
 		super("Installer");
 		this.game = game;
-//		setFont(getFont().deriveFont(Font.BOLD, 24));
-//		setBackground(Color.RED);
-//		setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
 		addActionListener(e -> new GameRunner(engine, game).startInstall());
-		setVisible(game.isInstallable());
+		setVisible(!game.isInstalled() && game.getProcess() == null);
+		setEnabled(game.isInstallable());
+		setText(game.isInstallable() ? "Installer" : "Aucun instaler disponible");
 		game.getPcs().addPropertyChangeListener(this);
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		setVisible(game.isInstallable());
-		if (game.getInstalers().isEmpty()) {
-			setEnabled(false);
-			setText("Aucun instaler disponible");
-		}
+		setVisible(!game.isInstalled() && game.getProcess() == null);
+		setText(game.isInstallable() ? "Installer" : "Aucun instaler disponible");
+		setEnabled(game.isInstallable());
 		revalidate();
 	}
 

@@ -167,6 +167,7 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		panel.add(new JLabel("Autre options"));
 		panel.add(new GameArgCheckBox(game, "-locale=fr"));
+		panel.add(new GameEnvCheckBox(game, "PROTON_FSR4_UPGRADE=1"));
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		return panel;
 	}
