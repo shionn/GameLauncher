@@ -19,6 +19,7 @@ public class ProcessLogTextArea extends JTextArea implements PropertyChangeListe
 	private Game game;
 
 	public ProcessLogTextArea(Game game) {
+		System.out.println("ProcessLogTextArea");
 		this.game = game;
 		setVisible(game.getProcess() != null);
 		game.getPcs().addPropertyChangeListener(this);

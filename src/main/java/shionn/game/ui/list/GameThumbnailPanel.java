@@ -84,13 +84,11 @@ public class GameThumbnailPanel extends JPanel {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				e.consume();
-
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				e.consume();
-
 			}
 
 			@Override
