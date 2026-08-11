@@ -29,6 +29,7 @@ import shionn.game.games.Game;
 import shionn.game.games.GamescopeUpscaleFilterMode;
 import shionn.game.games.GamescopeUpscaleScalerMode;
 import shionn.game.games.GamescopeWindowMode;
+import shionn.game.launcher.GameRunner;
 import shionn.game.ui.detail.gamescope.GameScopeResolutionComboBoxBox;
 import shionn.game.ui.detail.gamescope.GamescopeEnumComboBox;
 import shionn.game.ui.generic.ConditionVisibleLabel;
@@ -73,7 +74,6 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 				public void componentResized(ComponentEvent e) {
 					int w = label.getWidth();
 					int h = label.getHeight();
-					System.out.println("componentResized " + w + " " + h);
 					if (image.getWidth() / (float) image.getHeight() >= w / (float) h) {
 						label.setIcon(new ImageIcon(image.getScaledInstance(-1, h, Image.SCALE_SMOOTH)));
 					} else {
@@ -106,11 +106,11 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		left.add(new GameProtonComboBox(engine, game));
 		left.add(new ConditionVisibleLabel("Executable", game, Game::isInstalled));
 		left.add(new GameRunfileButton(engine, game));
-		JPanel right = new JPanel();
-		right.setLayout(new BoxLayout(right, BoxLayout.X_AXIS));
+		JPanel right = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		right.add(new GameInstalButton(engine, game));
-		right.add(new GameRunButton(engine, game));
 		right.add(new GameKillButton(game));
+		right.add(new GameRunButton(engine, game, "Wintricks", () -> new GameRunner(engine, game).wintricksGui()));
+		right.add(new GameRunButton(engine, game, "Lancer", () -> new GameRunner(engine, game).start()));
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(left, BorderLayout.WEST);
 		panel.add(right, BorderLayout.EAST);

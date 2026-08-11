@@ -38,7 +38,7 @@ public class GameProcessBuilder {
 	}
 
 	public GameProcessBuilder store() {
-		return env("STORE", "gog");
+		return env("STORE", game.getStore());
 	}
 
 	public GameProcessBuilder gameId() {

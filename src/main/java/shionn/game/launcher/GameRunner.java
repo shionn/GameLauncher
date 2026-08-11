@@ -58,27 +58,52 @@ public class GameRunner {
 
 	}
 
+	public void wintricksGui() {
+
+		try {
+			ProcessBuilder processBuilder = new GameProcessBuilder(engine, game)
+					.wineprefix()
+					.protonPath()
+					.logs()
+					.umuRun()
+					.winetricks()
+					.arg("--gui")
+					.build();
+			Process process = processBuilder.start();
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						process.waitFor();
+						process.destroy();
+						game.setProcess(null);
+					} catch (InterruptedException e) {
+						throw new IllegalStateException(e);
+					}
+				}
+			}).start();
+			game.setProcess(process);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+
+	}
+
 	public void startInstall() {
 		switch (game.getStore()) {
 		case "gog":
-			installUsingWindowsExecutable();
+			new Thread(new WindowExeGameInstallRunner(engine, game)).start();
 			break;
 		case "steam":
-			installWindowsArchivedSteam();
+			new Thread(new WindowArchivedGameInstallRunner(engine, game)).start();
+			break;
+		case "abandonware":
+			new Thread(new WindowAbandonWareGameInstallRunner(engine, game)).start();
 			break;
 		default:
 			throw new IllegalArgumentException("Stor note supported " + game.getStore());
 		}
 
-	}
-
-	private void installUsingWindowsExecutable() {
-		new Thread(new WindowExeGameInstallRunner(engine, game)).start();
-
-	}
-
-	private void installWindowsArchivedSteam() {
-		new Thread(new WindowArchivedGameInstallRunner(engine, game)).start();
 	}
 
 }

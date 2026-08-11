@@ -2,8 +2,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.shionn</groupId>
-	<artifactId>GameLaucher</artifactId>
-	<name>GameLaucher</name>
+	<artifactId>GameLauncher</artifactId>
+	<name>GameLauncher</name>
 	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
 
@@ -27,7 +27,41 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
-
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-jar-plugin</artifactId>-->
+<!--				<version>3.2.0</version>-->
+<!--				<configuration>-->
+<!--					<archive>-->
+<!--						<manifest>-->
+<!--							<mainClass>shionn.game.ui.Window</mainClass>-->
+<!--						</manifest>-->
+<!--					</archive>-->
+<!--					<finalName>${project.artifactId}</finalName>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>shionn.game.ui.Window</mainClass>
+						</manifest>
+					</archive>
+					<finalName>${project.artifactId}</finalName>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>

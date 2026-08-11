@@ -31,8 +31,9 @@ public class Scanner {
 								.builder()
 								.letter(letterFolder.getName())
 								.name(gameFolder.getName())
-								.gameId(retreiveGameId(gameFolder))
-								.store(retreiveStore(gameFolder))
+								.gameId(retreiveFileName(gameFolder, ".gameid"))
+								.store(retreiveFileName(gameFolder, ".store"))
+								.platform(retreiveFileName(gameFolder, ".platform"))
 								.instalers(listAbsolutePath(gameFolder, ".exe"))
 								.archives(listAbsolutePath(gameFolder, ".tar.gz"))
 								.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
@@ -43,18 +44,11 @@ public class Scanner {
 		return games;
 	}
 
-	private String retreiveGameId(File gameFolder) {
-		return Arrays
-				.stream(gameFolder.listFiles(p -> p.getName().endsWith(".gameid")))
-				.map(p -> p.getName().replace(".gameid", ""))
-				.findAny()
-				.orElse(null);
-	}
 
-	private String retreiveStore(File gameFolder) {
+	private String retreiveFileName(File gameFolder, String extenssion) {
 		return Arrays
-				.stream(gameFolder.listFiles(p -> p.getName().endsWith(".store")))
-				.map(p -> p.getName().replace(".store", ""))
+				.stream(gameFolder.listFiles(p -> p.getName().endsWith(extenssion)))
+				.map(p -> p.getName().replace(extenssion, ""))
 				.findAny()
 				.orElse(null);
 	}

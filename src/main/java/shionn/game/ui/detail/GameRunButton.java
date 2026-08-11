@@ -7,19 +7,15 @@ import javax.swing.JButton;
 
 import shionn.game.games.Engine;
 import shionn.game.games.Game;
-import shionn.game.launcher.GameRunner;
 
 public class GameRunButton extends JButton implements PropertyChangeListener {
 	private static final long serialVersionUID = 7206045278803514454L;
 	private Game game;
 
-	public GameRunButton(Engine engine, Game game) {
-		super("Lancer");
+	public GameRunButton(Engine engine, Game game, String label, Runnable action) {
+		super(label);
 		this.game = game;
-		addActionListener(e -> new GameRunner(engine, game).start());
-//		setFont(getFont().deriveFont(Font.BOLD, 24));
-//		setBackground(Color.GREEN);
-//		setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
+		addActionListener(e -> action.run());
 		setVisible(game.isRunnable() && game.getProcess() == null);
 		game.getPcs().addPropertyChangeListener(this);
 	}

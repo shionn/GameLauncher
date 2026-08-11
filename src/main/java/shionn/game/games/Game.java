@@ -47,6 +47,8 @@ public class Game implements Comparable<Game> {
 	private String gameId;
 	@Setter
 	private String store;
+	@Setter
+	private String platform;
 	private Process process;
 
 	private boolean mangohudEnabled;
@@ -78,7 +80,8 @@ public class Game implements Comparable<Game> {
 		}
 		return switch(store) {
 		case "gog" -> proton != null && !instalers.isEmpty();
-		case "steam" -> proton != null && !archives.isEmpty();
+		case "steam" -> proton != null && !archives.isEmpty() && !"linux".equals(platform);
+		case "abandonware" -> proton != null;
 		default -> false;
 		};
 	}
@@ -194,8 +197,14 @@ public class Game implements Comparable<Game> {
 				props.load(reader);
 				proton = props.getProperty("proton", null);
 				runfile = props.getProperty("runfile", null);
-				Arrays.stream(props.getProperty("runArgs", "").split(",")).forEach(runArgs::add);
-				Arrays.stream(props.getProperty("envArgs", "").split(",")).forEach(envArgs::add);
+				Arrays
+						.stream(props.getProperty("runArgs", "").split(","))
+						.filter(s -> !s.isEmpty())
+						.forEach(runArgs::add);
+				Arrays
+						.stream(props.getProperty("envArgs", "").split(","))
+						.filter(s -> !s.isEmpty())
+						.forEach(envArgs::add);
 				mangohudEnabled = Boolean.parseBoolean(props.getProperty("mangohudEnabled", "false"));
 				feralGamemodeEnabled = Boolean.parseBoolean(props.getProperty("feralGamemodeEnabled", "false"));
 				gamescopeEnabled = Boolean.parseBoolean(props.getProperty("gamescopeEnabled", "false"));
