@@ -55,5 +55,5 @@ https://github.com/Sinfolke/Proton-outside-steam
 à backuper : 
 - /home/shionn/.local/share/umu/steamrt3 (1/2/4)
 - /home/shionn/.cache/winetricks/
-- /home/shionn/.config/protonfixes
+- /home/shionn/.config/protonfixes ??
 

@@ -15,35 +15,71 @@ public class Scanner {
 	}
 
 	private List<Game> scanGames() {
-		List<Game> games = new ArrayList<>();
-		games.addAll(scanInstalFolders());
-		games = checkInstalled(games);
+		List<Game> games = scanInstalledFolder();
+		games = scanInstalerFolder(games);
 		return games.stream().sorted().toList();
 	}
 
-	private List<Game> scanInstalFolders() {
-		List<Game> games = new ArrayList<>();
+	private List<Game> scanInstalerFolder(List<Game> installeds) {
+		List<Game> games = new ArrayList<>(installeds);
 		File rootFolder = new File(configuration.instalersFolder());
-		for (File letterFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
-			for (File gameFolder : letterFolder.listFiles(pathname ->pathname.isDirectory())) {
-				games
-						.add(Game
-								.builder()
-								.letter(letterFolder.getName())
-								.name(gameFolder.getName())
-								.gameId(retreiveFileName(gameFolder, ".gameid"))
-								.store(retreiveFileName(gameFolder, ".store"))
-								.platform(retreiveFileName(gameFolder, ".platform"))
-								.instalers(listAbsolutePath(gameFolder, ".exe"))
-								.archives(listAbsolutePath(gameFolder, ".tar.gz"))
-								.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
-								.build());
+		if (rootFolder.exists()) {
+			for (File letterFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
+				for (File gameFolder : letterFolder.listFiles(pathname -> pathname.isDirectory())) {
+					games
+							.stream()
+							.filter(g -> g.getName().equals(gameFolder.getName()))
+							.findAny()
+							.ifPresentOrElse(g -> {
+								g.setArchives(listAbsolutePath(gameFolder, ".tar.gz"));
+								g.setInstalers(listAbsolutePath(gameFolder, ".exe"));
+							}, () -> games.add(buildGame(gameFolder)));
+				}
 			}
 		}
-
 		return games;
 	}
 
+	private Game buildGame(File gameFolder) {
+		String letter = gameFolder.getName().substring(0, 1);
+		if (letter.matches("[0-9]")) {
+			letter = "#";
+		}
+		return Game
+				.builder()
+				.letter(letter)
+				.name(gameFolder.getName())
+				.gameId(retreiveFileName(gameFolder, ".gameid"))
+				.store(retreiveFileName(gameFolder, ".store"))
+				.platform(retreiveFileName(gameFolder, ".platform"))
+				.instalers(listAbsolutePath(gameFolder, ".exe"))
+				.archives(listAbsolutePath(gameFolder, ".tar.gz"))
+				.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
+				.build();
+	}
+
+
+
+	private List<Proton> scanProtons() {
+		List<Proton> protons = new ArrayList<>();
+		File rootFolder = new File(configuration.protonsFolder());
+		for (File protonFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
+			protons.add(Proton.builder().name(protonFolder.getName()).path(protonFolder.getAbsolutePath()).build());
+		}
+		return protons;
+	}
+
+	private List<Game> scanInstalledFolder() {
+		List<Game> games = new ArrayList<Game>();
+		File rootFolder = new File(configuration.gamesFolder());
+		for (File gameFolder : rootFolder.listFiles(pathname -> pathname.isDirectory() && !pathname.isHidden())) {
+			Game game = buildGame(gameFolder);
+			game.setInstalledFolder(gameFolder.getAbsolutePath());
+			game.loadConfiguration();
+			games.add(game);
+		}
+		return games;
+	}
 
 	private String retreiveFileName(File gameFolder, String extenssion) {
 		return Arrays
@@ -58,27 +94,6 @@ public class Scanner {
 				.stream(folder.listFiles(pathname -> pathname.getName().endsWith(extenssion)))
 				.map(f -> f.getAbsolutePath())
 				.toList();
-	}
-
-	private List<Proton> scanProtons() {
-		List<Proton> protons = new ArrayList<>();
-		File rootFolder = new File(configuration.protonsFolder());
-		for (File protonFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
-			protons.add(Proton.builder().name(protonFolder.getName()).path(protonFolder.getAbsolutePath()).build());
-		}
-		return protons;
-	}
-
-	private List<Game> checkInstalled(List<Game> games) {
-		File rootFolder = new File(configuration.gamesFolder());
-		for (File gameFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
-			games.stream().filter(g -> g.getName().equals(gameFolder.getName())).findAny().ifPresent(game -> {
-				game.setInstalledFolder(gameFolder.getAbsolutePath());
-				game.loadConfiguration();
-				game.setInstalled(true);
-			});
-		}
-		return games;
 	}
 
 }
