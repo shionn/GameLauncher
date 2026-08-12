@@ -36,10 +36,11 @@ public class WindowExeGameInstallRunner implements Runnable {
 			process.destroy();
 			if (exitCode == 0) {
 				game.setInstalledFolder(configuration.gamesFolder() + game.getName());
-				game.setInstalled(true);
 				game.setRunfile(new TryToFindRunFile().searchExe(game));
+				new PostInstalCommonOperation().doPostInstall(game);
+				game.setInstalled(true);
 			} else {
-				deleteIncompleteInstal();
+				throw new IllegalStateException("Process return " + exitCode);
 			}
 			game.setProcess(null);
 		} catch (InterruptedException | RuntimeException | IOException e) {

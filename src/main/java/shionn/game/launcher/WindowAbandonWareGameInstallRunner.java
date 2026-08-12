@@ -25,9 +25,10 @@ public class WindowAbandonWareGameInstallRunner implements Runnable {
 			int exitCode = createPrefix();
 			if (exitCode == 0) {
 				game.setInstalledFolder(configuration.gamesFolder() + game.getName());
+				new PostInstalCommonOperation().doPostInstall(game);
 				game.setInstalled(true);
 			} else {
-				deleteIncompleteInstal();
+				throw new IllegalStateException("Process return " + exitCode);
 			}
 			game.setProcess(null);
 

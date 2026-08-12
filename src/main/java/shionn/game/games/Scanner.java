@@ -76,6 +76,7 @@ public class Scanner {
 			Game game = buildGame(gameFolder);
 			game.setInstalledFolder(gameFolder.getAbsolutePath());
 			game.loadConfiguration();
+			game.setInstalled(true);
 			games.add(game);
 		}
 		return games;

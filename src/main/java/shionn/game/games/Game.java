@@ -65,7 +65,7 @@ public class Game implements Comparable<Game> {
 	public int compareTo(Game o) {
 		int c = letter.compareTo(o.letter);
 		if (c == 0) {
-			c = name.compareTo(o.name);
+			c = name.toLowerCase().compareTo(o.name.toLowerCase());
 		}
 		return c;
 	}
