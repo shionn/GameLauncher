@@ -24,7 +24,8 @@ public class Scanner {
 		List<Game> games = new ArrayList<>(installeds);
 		File rootFolder = new File(configuration.instalersFolder());
 		if (rootFolder.exists()) {
-			for (File letterFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
+			for (File letterFolder : rootFolder
+					.listFiles(pathname -> pathname.isDirectory() && !pathname.isHidden())) {
 				for (File gameFolder : letterFolder.listFiles(pathname -> pathname.isDirectory())) {
 					games
 							.stream()
@@ -72,7 +73,8 @@ public class Scanner {
 	private List<Game> scanInstalledFolder() {
 		List<Game> games = new ArrayList<Game>();
 		File rootFolder = new File(configuration.gamesFolder());
-		for (File gameFolder : rootFolder.listFiles(pathname -> pathname.isDirectory() && !pathname.isHidden())) {
+		for (File gameFolder : rootFolder
+				.listFiles(pathname -> pathname.isDirectory() && !pathname.isHidden())) {
 			Game game = buildGame(gameFolder);
 			game.setInstalledFolder(gameFolder.getAbsolutePath());
 			game.loadConfiguration();
