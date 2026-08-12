@@ -59,7 +59,7 @@
 							<mainClass>shionn.game.ui.Window</mainClass>
 						</manifest>
 					</archive>
-					<finalName>${project.artifactId}</finalName>
+<!--					<finalName>${project.artifactId}</finalName>-->
 				</configuration>
 			</plugin>
 		</plugins>

@@ -3,8 +3,7 @@
 mvn clean package
 
 echo "deploy jar"
-cp -f target/GameLauncher-jar-with-dependencies.jar ~/.local/bin/
-
+sudo cp -f target/GameLauncher-1.0-SNAPSHOT-jar-with-dependencies.jar /usr/share/java/
 
 
 echo "Build Desktop"
@@ -13,11 +12,11 @@ Name=Game Launcher
 Comment=Game Launcher
 GenericName=Game Launcher
 X-GNOME-FullName=Game Launcher
-Exec=java -jar /home/shionn/.local/bin/GameLauncher-jar-with-dependencies.jar
+Exec=java -jar /usr/share/java/GameLauncher-1.0-SNAPSHOT-jar-with-dependencies.jar
 Terminal=false
 X-MultipleArgs=false
 Type=Application
 Categories=Game
 Icon=None.png
 StartupWMClass=Game Launcher
-StartupNotify=true" > ~/.local/share/applications/GameLauncher.desktop
+StartupNotify=true" | sudo tee /usr/share/applications/GameLauncher.desktop > /dev/null
