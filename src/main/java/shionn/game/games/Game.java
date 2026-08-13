@@ -80,10 +80,14 @@ public class Game implements Comparable<Game> {
 		}
 		return switch(store) {
 		case "gog" -> proton != null && !instalers.isEmpty();
-		case "steam" -> proton != null && !archives.isEmpty() && !"linux".equals(platform);
+		case "epic", "steam" -> proton != null && !archives.isEmpty() && !"linux".equals(platform);
 		case "abandonware" -> proton != null;
 		default -> false;
 		};
+	}
+
+	public boolean isWindowsPlatform() {
+		return platform == null || "windows".equals(platform);
 	}
 
 	public void setProton(String proton) {
@@ -255,5 +259,6 @@ public class Game implements Comparable<Game> {
 			}
 		}
 	}
+
 
 }

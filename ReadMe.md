@@ -14,26 +14,49 @@ Il est conseillé également d'avoir steam d'installer.
 
 ## Fichier d'installation
 
-Dans mon cas les executable d'installation sont sur mon NAS. 
-Il faut que les jeux soit organisé sur ce format : 
+Les fichiers d'instalation doivent être organiser comme suit : 
 
 ~~~
 /<configuration.propertie:folder.instalers>
 |--A
 |  |--Alan Wake
 |  |  |-- setup<...>.exe et setup<...>.bin d'installation
-|  |  |-- un .jpg
+|  |  |-- un .jpg (necessaire pour l'affichage)
 |  |  |-- umu-<gameid>.gameid pour les protonfixes
-|  |  |-- gog.store
-|
+|  |  |-- gog.store (gog/steam/abandonware)
+|  |  |-- windows.platform (windows/linux)
 ~~~
+
+## Platoforme
+
+### windows.platform
+
+Par défaut un jeu est concidérer comme etant originelement pour la plateforme `Windows`. 
+Mais vous pouvez le précisez en ajoutant un fichier `windows.platform` dans le dossier source. 
+
+### linux.platform
+
+Pour faire reconnaitre un jeu pour la platform `Linux` vous devez ajouter un fichier `linux.platform` dans le dossier source du jeu. Cependant, actuellement le launcher ne supporte pas encore ces jeux.
+
+## Store
+
+Vous devez ajouter un des troix fichiers suivant en fonction de la plateforme d'origine. 
+
+### gog.store
+
+Indique que le jeu provien de la plateforme GoG. 
+
+
+L'insatllation requier un fichier 
 
 Pour trouver un protonfixe :  [umu-database](https://github.com/Open-Wine-Components/umu-database) et [umu-protonfixes](https://github.com/Open-Wine-Components/umu-protonfixes)
 
 
 # TODO
 
-PROTON_FSR4_UPGRADE=1
+## Epic :
+ https://www.pcgamingwiki.com/wiki/List_of_DRM-free_games_on_Epic_Games_Store
+
 
 # Truc de dev pour note
 

@@ -20,17 +20,27 @@ public class GameInstalButton extends JButton implements PropertyChangeListener 
 		addActionListener(e -> new GameRunner(engine, game).startInstall());
 		setVisible(!game.isInstalled() && game.getProcess() == null);
 		setEnabled(game.isInstallable());
-		setText(game.isInstallable() ? "Installer" : "Aucun instaler disponible");
+		setText(buildText(game));
 		game.getPcs().addPropertyChangeListener(this);
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		setVisible(!game.isInstalled() && game.getProcess() == null);
-		setText(game.isInstallable() ? "Installer" : "Aucun instaler disponible");
+		setText(buildText(game));
 		setEnabled(game.isInstallable());
 		revalidate();
 	}
 
+
+	private String buildText(Game game) {
+		if (game.isInstallable()) {
+			return "Installer";
+		}
+		if (game.isWindowsPlatform()) {
+			return "Selectionner une version de proton";
+		}
+		return "Aucun instaler disponible";
+	}
 
 }

@@ -13,7 +13,6 @@ public class PostInstalCommonOperation {
 
 	public void doPostInstall(Game game) {
 		try {
-			System.out.println("doPostInstall");
 			Path target = Paths
 					.get(game.getInstalledFolder() + "/"
 							+ new File(game.getInstalersImgs().get(0)).getName());

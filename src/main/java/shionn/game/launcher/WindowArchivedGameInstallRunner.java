@@ -58,9 +58,17 @@ public class WindowArchivedGameInstallRunner implements Runnable {
 	}
 
 	private String makeGameFolder() {
-		String pathname = configuration.gamesFolder() + game.getName() + "/drive_c/Steam Games";
+		String pathname = configuration.gamesFolder() + game.getName() + "/drive_c/" + getStoreFolder();
 		new File(pathname).mkdirs();
 		return pathname;
+	}
+
+	private String getStoreFolder() {
+		return switch (game.getStore()) {
+		case "steam" -> "Steam Games";
+		case "epic" -> "Epic Games";
+		default -> throw new IllegalArgumentException("Unknow store " + game.getPlatform());
+		};
 	}
 
 	private int extractArchive() throws IOException, InterruptedException {
