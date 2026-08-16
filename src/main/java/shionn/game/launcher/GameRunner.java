@@ -95,7 +95,7 @@ public class GameRunner {
 			new Thread(new WindowExeGameInstallRunner(engine, game)).start();
 			break;
 		case "steam":
-		case "epic":
+		case "egs":
 			new Thread(new WindowArchivedGameInstallRunner(engine, game)).start();
 			break;
 		case "abandonware":

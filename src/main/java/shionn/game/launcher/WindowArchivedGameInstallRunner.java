@@ -66,7 +66,7 @@ public class WindowArchivedGameInstallRunner implements Runnable {
 	private String getStoreFolder() {
 		return switch (game.getStore()) {
 		case "steam" -> "Steam Games";
-		case "epic" -> "Epic Games";
+		case "egs" -> "Epic Games";
 		default -> throw new IllegalArgumentException("Unknow store " + game.getPlatform());
 		};
 	}

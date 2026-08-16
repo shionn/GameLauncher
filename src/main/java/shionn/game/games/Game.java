@@ -80,7 +80,7 @@ public class Game implements Comparable<Game> {
 		}
 		return switch(store) {
 		case "gog" -> proton != null && !instalers.isEmpty();
-		case "epic", "steam" -> proton != null && !archives.isEmpty() && !"linux".equals(platform);
+		case "egs", "steam" -> proton != null && !archives.isEmpty() && !"linux".equals(platform);
 		case "abandonware" -> proton != null;
 		default -> false;
 		};

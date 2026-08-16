@@ -23,7 +23,7 @@ Les fichiers d'instalation doivent être organiser comme suit :
 |  |  |-- setup<...>.exe et setup<...>.bin d'installation
 |  |  |-- un .jpg (necessaire pour l'affichage)
 |  |  |-- umu-<gameid>.gameid pour les protonfixes
-|  |  |-- gog.store (gog/steam/abandonware)
+|  |  |-- gog.store (gog/steam/abandonware/egs)
 |  |  |-- windows.platform (windows/linux)
 ~~~
 
