@@ -12,6 +12,9 @@ public class TryToFindRunFile {
 		if (filename == null) {
 			filename = search(game.getInstalledFolder() + "/drive_c/Steam Games/");
 		}
+		if (filename == null) {
+			filename = search(game.getInstalledFolder() + "/drive_c/Epic Games/");
+		}
 		return filename;
 	}
 
