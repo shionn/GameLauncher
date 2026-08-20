@@ -168,6 +168,7 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		panel.add(new JLabel("Autre options"));
 		panel.add(new GameArgCheckBox(game, "-locale=fr"));
 		panel.add(new GameArgCheckBox(game, "-nosteam"));
+		panel.add(new GameArgCheckBox(game, "-EpicPortal"));
 		panel.add(new GameEnvCheckBox(game, "PROTON_FSR4_UPGRADE=1"));
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		return panel;

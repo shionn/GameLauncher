@@ -44,10 +44,26 @@ Vous devez ajouter un des troix fichiers suivant en fonction de la plateforme d'
 
 ### gog.store
 
-Indique que le jeu provien de la plateforme GoG. 
+Indique que le jeu provien de la plateforme GoG. L'insatllation requiere un fichier .exe et les  .bin qu'on peu telecharger depuis notre compte Heroic. 
+
+### egs.store
+
+Indique que le jeu provient de la plateforme Epic Game Store. L'instatllation requiere un fichier .tar.gz. Je construits cette archive à partir d'Heroic. 
+La liste des jeu [DRM-Free se trouve ici](https://www.pcgamingwiki.com/wiki/List_of_DRM-free_games_on_Epic_Games_Store).
 
 
-L'insatllation requier un fichier 
+### steam.store
+
+Indique que le jeu provient de la plateforme Steam. L'instatllation requiere un fichier .tar.gz. 
+Je construits cette archive à partir depuis steam. 
+Cela ne supporte pas la fonction de backup de steam. 
+
+
+### abandonware.store
+
+Installation manuel
+
+## GameID
 
 Pour trouver un protonfixe :  [umu-database](https://github.com/Open-Wine-Components/umu-database) et [umu-protonfixes](https://github.com/Open-Wine-Components/umu-protonfixes)
 
@@ -55,7 +71,6 @@ Pour trouver un protonfixe :  [umu-database](https://github.com/Open-Wine-Compon
 # TODO
 
 ## Epic :
- https://www.pcgamingwiki.com/wiki/List_of_DRM-free_games_on_Epic_Games_Store
 
 
 # Truc de dev pour note
