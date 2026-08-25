@@ -2,10 +2,13 @@ package shionn.game.launcher;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 
 import shionn.game.games.Game;
 
 public class TryToFindRunFile {
+
+	private final List<String> IGNORED = Arrays.asList("UnityCrashHandler64.exe");
 
 	public String searchExe(Game game) {
 		String filename = search(game.getInstalledFolder() + "/drive_c/GOG Games/");
@@ -23,7 +26,7 @@ public class TryToFindRunFile {
 		if (folder.exists()) {
 			folder = Arrays.stream(folder.listFiles(f -> f.isDirectory())).findAny().orElse(null);
 			if (folder != null) {
-				File[] exes = folder.listFiles((dir, name) -> name.endsWith(".exe"));
+				File[] exes = folder.listFiles((dir, name) -> name.endsWith(".exe") && !IGNORED.contains(name));
 				if (exes.length == 1) {
 					return exes[0].getAbsolutePath();
 				}

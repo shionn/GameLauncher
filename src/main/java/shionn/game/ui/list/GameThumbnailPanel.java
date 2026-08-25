@@ -40,8 +40,8 @@ public class GameThumbnailPanel extends JPanel {
 		button.addActionListener(e -> openGame());
 		add(button, BorderLayout.SOUTH);
 
-		setPreferredSize(new Dimension(200, 180));
-		setMinimumSize(new Dimension(200, 180));
+		setPreferredSize(new Dimension(250, 180));
+		setMinimumSize(new Dimension(250, 180));
 
 		engine
 				.getPcs()

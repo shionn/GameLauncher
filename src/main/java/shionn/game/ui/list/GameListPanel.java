@@ -86,7 +86,7 @@ public class GameListPanel extends JPanel {
 	}
 
 	private void reorganize() {
-		int colCount = Math.max(1, getWidth() / 250);
+		int colCount = Math.max(1, getWidth() / 300);
 		int x = 0;
 		int y = 0;
 		GridBagLayout layout = (GridBagLayout) getLayout();

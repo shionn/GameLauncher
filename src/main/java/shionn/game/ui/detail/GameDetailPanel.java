@@ -21,6 +21,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
@@ -82,8 +83,8 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 				}
 			});
 			label.setAlignmentX(.5f);
-			label.setMaximumSize(new Dimension(Integer.MAX_VALUE, 400));
-			label.setPreferredSize(new Dimension(1000, 300));
+			label.setMaximumSize(new Dimension(1366, 400));
+			label.setPreferredSize(new Dimension(1000, 350));
 			return label;
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
@@ -174,16 +175,17 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		return panel;
 	}
 
-	private JPanel buildLog(Game game) {
+	private JScrollPane buildLog(Game game) {
 
-//		JScrollPane scrollPane = new JScrollPane(textArea);
-//		scrollPane.setAutoscrolls(true);
-//		textArea.setScrollPane(scrollPane);
+		ProcessLogTextArea textArea = new ProcessLogTextArea(game);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setAutoscrolls(true);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(new ProcessLogTextArea(game), BorderLayout.CENTER);
-		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
-		return panel;
+//		JPanel panel = new JPanel(new BorderLayout());
+//		panel.add(view, BorderLayout.CENTER);
+//		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
+		return scrollPane;
 	}
 
 	private JSeparator buildSeparator() {
