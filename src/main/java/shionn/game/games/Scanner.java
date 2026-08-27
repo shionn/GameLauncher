@@ -42,14 +42,19 @@ public class Scanner {
 	}
 
 	private Game buildGame(File gameFolder) {
-		String letter = gameFolder.getName().substring(0, 1);
+		String simpleName = gameFolder.getName();
+		if (simpleName.startsWith("The ")) {
+			simpleName = simpleName.substring(4);
+		}
+		String letter = simpleName.substring(0, 1);
 		if (letter.matches("[0-9]")) {
 			letter = "#";
 		}
 		return Game
 				.builder()
-				.letter(letter)
 				.name(gameFolder.getName())
+				.simplifiedName(simpleName)
+				.letter(letter)
 				.gameId(retreiveFileName(gameFolder, ".gameid"))
 				.store(retreiveFileName(gameFolder, ".store"))
 				.platform(retreiveFileName(gameFolder, ".platform"))

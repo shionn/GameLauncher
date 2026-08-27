@@ -28,6 +28,7 @@ public class Game implements Comparable<Game> {
 	private String letter;
 	@Setter
 	private String name;
+	private String simplifiedName;
 	@Setter
 	private List<String> instalers;
 	@Setter
@@ -65,7 +66,7 @@ public class Game implements Comparable<Game> {
 	public int compareTo(Game o) {
 		int c = letter.compareTo(o.letter);
 		if (c == 0) {
-			c = name.toLowerCase().compareTo(o.name.toLowerCase());
+			c = simplifiedName.toLowerCase().compareTo(o.simplifiedName.toLowerCase());
 		}
 		return c;
 	}
@@ -259,6 +260,7 @@ public class Game implements Comparable<Game> {
 			}
 		}
 	}
+
 
 
 }

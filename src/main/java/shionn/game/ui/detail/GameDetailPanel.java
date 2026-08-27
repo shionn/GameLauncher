@@ -63,7 +63,6 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		add(new JLabel(game.getStore() + Optional.ofNullable(game.getGameId()).map(id -> " - " + id).orElse("")));
 	}
 
-
 	private JLabel buildImageTitle(Game game) {
 		try {
 			String filename = game.getInstalersImgs().get(0);
@@ -128,6 +127,7 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		return panel;
 	}
+
 	private Component buildGamescopePanel1(Game game) {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		panel.add(new SimpleCheckBox("Gamescope", game, game::isGamescopeEnabled, game::setGamescopeEnabled));
