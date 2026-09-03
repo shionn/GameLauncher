@@ -8,7 +8,7 @@ import shionn.game.games.Game;
 
 public class TryToFindRunFile {
 
-	private final List<String> IGNORED = Arrays.asList("UnityCrashHandler64.exe");
+	private final List<String> IGNORED = Arrays.asList("UnityCrashHandler64.exe", "unins000.exe");
 
 	public String searchExe(Game game) {
 		String filename = search(game.getInstalledFolder() + "/drive_c/GOG Games/");
