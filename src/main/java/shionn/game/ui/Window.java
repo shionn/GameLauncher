@@ -2,8 +2,10 @@ package shionn.game.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -41,6 +43,7 @@ public class Window {
 		frame.pack();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setSize(new Dimension(1920, 1080));
 		Thread.setDefaultUncaughtExceptionHandler(new ErrorHandler(frame));
 	}
 
@@ -69,8 +72,12 @@ public class Window {
 	private Component buildBottomControlPanel() {
 		JCheckBox checkBox = new JCheckBox("Installé uniquement");
 		checkBox.addActionListener(e -> engine.setDisplayInstalledGameOnly(checkBox.isSelected()));
+		JButton jButton = new JButton("quitter");
+		jButton.addActionListener(e -> System.exit(0));
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(checkBox, BorderLayout.EAST);
+		panel.add(checkBox, BorderLayout.WEST);
+		panel.add(jButton, BorderLayout.EAST);
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		return panel;
 	}
 
