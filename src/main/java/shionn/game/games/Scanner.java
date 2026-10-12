@@ -25,7 +25,8 @@ public class Scanner {
 		File rootFolder = new File(configuration.instalersFolder());
 		if (rootFolder.exists()) {
 			for (File letterFolder : rootFolder
-					.listFiles(pathname -> pathname.isDirectory() && !pathname.isHidden())) {
+					.listFiles(pathname -> pathname.isDirectory() && !pathname.isHidden()
+							&& !pathname.getName().startsWith("@"))) {
 				for (File gameFolder : letterFolder.listFiles(pathname -> pathname.isDirectory())) {
 					games
 							.stream()
