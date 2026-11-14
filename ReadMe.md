@@ -67,31 +67,6 @@ Installation manuel
 
 Pour trouver un protonfixe :  [umu-database](https://github.com/Open-Wine-Components/umu-database) et [umu-protonfixes](https://github.com/Open-Wine-Components/umu-protonfixes)
 
+# Dépendance 
 
-# TODO
-
-## Epic :
-
-
-# Truc de dev pour note
-
-steam steam://install/4183110
-steam steam://install/1628350
-steam steam://install/1391110
-steam steam://install/1070560
-
-
-https://www.gaminglinux.fr/wine-proton-et-umu-executer-des-jeux-windows-sur-linux/
-
-https://github.com/Open-Wine-Components/umu-launcher/blob/main/docs/umu.1.scd
-
-https://github.com/10xJSChad/proton-standalone
-
-https://github.com/Sinfolke/Proton-outside-steam
-
-
-à backuper : 
-- /home/shionn/.local/share/umu/steamrt3 (1/2/4)
-- /home/shionn/.cache/winetricks/
-- /home/shionn/.config/protonfixes ??
-
+zenity, umu, proton

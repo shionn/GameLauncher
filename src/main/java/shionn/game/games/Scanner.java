@@ -6,23 +6,27 @@ import java.util.Arrays;
 import java.util.List;
 
 import shionn.game.Configuration;
+import shionn.game.exceptions.MissingFolderException;
 
 public class Scanner {
 	private Configuration configuration = new Configuration();
 
-	public Engine buildEngine() {
+	public Engine buildEngine() throws MissingFolderException {
 		return Engine.builder().games(scanGames()).protons(scanProtons()).build();
 	}
 
-	private List<Game> scanGames() {
+	private List<Game> scanGames() throws MissingFolderException {
 		List<Game> games = scanInstalledFolder();
 		games = scanInstalerFolder(games);
 		return games.stream().sorted().toList();
 	}
 
-	private List<Game> scanInstalerFolder(List<Game> installeds) {
+	private List<Game> scanInstalerFolder(List<Game> installeds) throws MissingFolderException {
 		List<Game> games = new ArrayList<>(installeds);
 		File rootFolder = new File(configuration.instalersFolder());
+		if (!rootFolder.exists()) {
+			throw new MissingFolderException("folder.instalers", configuration.instalersFolder());
+		}
 		if (rootFolder.exists()) {
 			for (File letterFolder : rootFolder
 					.listFiles(pathname -> pathname.isDirectory() && !pathname.isHidden()
@@ -67,18 +71,24 @@ public class Scanner {
 
 
 
-	private List<Proton> scanProtons() {
+	private List<Proton> scanProtons() throws MissingFolderException {
 		List<Proton> protons = new ArrayList<>();
 		File rootFolder = new File(configuration.protonsFolder());
+		if (!rootFolder.exists()) {
+			throw new MissingFolderException("folder.proton", configuration.protonsFolder());
+		}
 		for (File protonFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
 			protons.add(Proton.builder().name(protonFolder.getName()).path(protonFolder.getAbsolutePath()).build());
 		}
 		return protons;
 	}
 
-	private List<Game> scanInstalledFolder() {
+	private List<Game> scanInstalledFolder() throws MissingFolderException {
 		List<Game> games = new ArrayList<Game>();
 		File rootFolder = new File(configuration.gamesFolder());
+		if (!rootFolder.exists()) {
+			throw new MissingFolderException("folder.games", configuration.gamesFolder());
+		}
 		for (File gameFolder : rootFolder
 				.listFiles(pathname -> pathname.isDirectory() && !pathname.isHidden())) {
 			Game game = buildGame(gameFolder);

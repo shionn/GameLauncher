@@ -3,6 +3,7 @@ package shionn.game.ui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import lombok.RequiredArgsConstructor;
+import shionn.game.Configuration;
+import shionn.game.exceptions.MissingFolderException;
 import shionn.game.games.Engine;
 import shionn.game.games.Scanner;
 import shionn.game.ui.error.ErrorHandler;
@@ -26,13 +29,21 @@ public class Window {
 	private final Engine engine;
 
 	public static void main(String[] args)
-			throws ReflectiveOperationException, UnsupportedLookAndFeelException {
-		Engine engine = new Scanner().buildEngine();
-		new Window(engine).build();
+			throws ReflectiveOperationException, UnsupportedLookAndFeelException, IOException {
+		try {
+			UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
+			Engine engine = new Scanner().buildEngine();
+			new Window(engine).build();
+		} catch (MissingFolderException e) {
+			String message = String
+					.format("Le dossier '%s' n'existe pas. Vous pouvez le créer ou le modifier dans '%s'.",
+							e.getFolder(), Configuration.CONF_FILE);
+			new ProcessBuilder("zenity", "--error", "--text=" + message, "--title=Dossier manquant")
+					.start();
+		}
 	}
 
 	private void build() throws ReflectiveOperationException, UnsupportedLookAndFeelException {
-		UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarkLaf");
 		buildFrame();
 	}
 
