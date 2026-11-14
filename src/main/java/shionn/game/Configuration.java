@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 public class Configuration {
@@ -19,7 +21,7 @@ folder.instalers=/media/Games/
 # Dossier d'instalation
 folder.games=~/Games/
 # Dossier avec les protons
-folder.proton=~/Games/.proton/
+folder.proton=~/Games/.proton/,/usr/lib/proton/
 
 gamescope.resolutions=5120x1440,3360x1440,2560x1440,\
 3840x1080,2560x1080,1920x1080,\
@@ -60,8 +62,8 @@ gamescope.resolutions=5120x1440,3360x1440,2560x1440,\
 		return getFolder("folder.instalers");
 	}
 
-	public String protonsFolder() {
-		return getFolder("folder.proton");
+	public List<String> protonsFolder() {
+		return getFolders("folder.proton");
 	}
 
 	public String gamesFolder() {
@@ -72,6 +74,13 @@ gamescope.resolutions=5120x1440,3360x1440,2560x1440,\
 		String folder = props.getProperty(prop);
 		folder = folder.replace("~", System.getProperty("user.home"));
 		return folder;
+	}
+
+	private List<String> getFolders(String prop) {
+		return Arrays
+				.stream(props.getProperty(prop).split(","))
+				.map(f -> f.replace("~", System.getProperty("user.home")))
+				.toList();
 	}
 
 	public String[] gamescopeResolutions() {

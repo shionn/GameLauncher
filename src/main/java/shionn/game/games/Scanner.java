@@ -73,12 +73,14 @@ public class Scanner {
 
 	private List<Proton> scanProtons() throws MissingFolderException {
 		List<Proton> protons = new ArrayList<>();
-		File rootFolder = new File(configuration.protonsFolder());
-		if (!rootFolder.exists()) {
-			throw new MissingFolderException("folder.proton", configuration.protonsFolder());
-		}
-		for (File protonFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
-			protons.add(Proton.builder().name(protonFolder.getName()).path(protonFolder.getAbsolutePath()).build());
+		for (String conf : configuration.protonsFolder()) {
+			File rootFolder = new File(conf);
+			if (!rootFolder.exists()) {
+				throw new MissingFolderException("folder.proton", conf);
+			}
+			for (File protonFolder : rootFolder.listFiles(pathname -> pathname.isDirectory())) {
+				protons.add(Proton.builder().name(protonFolder.getName()).path(protonFolder.getAbsolutePath()).build());
+			}
 		}
 		return protons;
 	}
