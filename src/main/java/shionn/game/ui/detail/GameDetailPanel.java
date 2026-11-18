@@ -102,14 +102,18 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 
 	private Component buildMainControlPanel(Engine engine, Game game) {
 		JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
-		left.add(new JLabel("Version Proton"));
-		left.add(new GameProtonComboBox(engine, game));
+		if (game.isWindowsPlatform()) {
+			left.add(new JLabel("Version Proton"));
+			left.add(new GameProtonComboBox(engine, game));
+		}
 		left.add(new ConditionVisibleLabel("Executable", game, Game::isInstalled));
 		left.add(new GameRunfileButton(engine, game));
 		JPanel right = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
 		right.add(new GameInstalButton(engine, game));
 		right.add(new GameKillButton(game));
-		right.add(new GameRunButton(engine, game, "Wintricks", () -> new GameRunner(engine, game).wintricksGui()));
+		if (game.isWindowsPlatform()) {
+			right.add(new GameRunButton(engine, game, "Wintricks", () -> new GameRunner(engine, game).wintricksGui()));
+		}
 		right.add(new GameRunButton(engine, game, "Lancer", () -> new GameRunner(engine, game).start()));
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(left, BorderLayout.WEST);

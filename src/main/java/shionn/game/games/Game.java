@@ -72,7 +72,9 @@ public class Game implements Comparable<Game> {
 	}
 
 	public boolean isRunnable() {
-		return proton != null && isInstalled() && runfile != null;
+		if (isWindowsPlatform())
+			return proton != null && isInstalled() && runfile != null;
+		return isInstalled() && runfile != null;
 	}
 
 	public boolean isInstallable() {
@@ -83,6 +85,7 @@ public class Game implements Comparable<Game> {
 		case "gog" -> proton != null && !instalers.isEmpty();
 		case "egs", "steam" -> proton != null && !archives.isEmpty() && !"linux".equals(platform);
 		case "abandonware" -> proton != null;
+		case "recomp-game" -> !archives.isEmpty() && "linux".equals(platform);
 		default -> false;
 		};
 	}

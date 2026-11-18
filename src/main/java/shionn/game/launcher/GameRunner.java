@@ -18,6 +18,46 @@ public class GameRunner {
 
 	public void start() {
 
+		if (game.isWindowsPlatform()) {
+			startWindows();
+		} else {
+			startNative();
+		}
+
+	}
+
+	private void startNative() {
+		try {
+			ProcessBuilder processBuilder = new GameProcessBuilder(engine, game)
+					.otherEnvs()
+					.directory()
+					.feralGamemode()
+					.gamescope()
+					.mangohud()
+					.runFile()
+					.otherRunArgs()
+					.build();
+			Process process = processBuilder.start();
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						process.waitFor();
+						process.destroy();
+						game.setProcess(null);
+					} catch (InterruptedException e) {
+						throw new IllegalStateException(e);
+					}
+				}
+			}).start();
+			game.setProcess(process);
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+
+	}
+
+	private void startWindows() {
 		try {
 			ProcessBuilder processBuilder = new GameProcessBuilder(engine, game)
 					.wineprefix()
@@ -55,7 +95,6 @@ public class GameRunner {
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
-
 	}
 
 	public void wintricksGui() {
@@ -100,6 +139,9 @@ public class GameRunner {
 			break;
 		case "abandonware":
 			new Thread(new WindowAbandonWareGameInstallRunner(engine, game)).start();
+			break;
+		case "recomp-game":
+			new Thread(new LinuxArchivedGameInstallRunner(engine, game)).start();
 			break;
 		default:
 			throw new IllegalArgumentException("Stor note supported " + game.getStore());

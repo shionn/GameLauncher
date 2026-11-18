@@ -36,7 +36,7 @@ Mais vous pouvez le précisez en ajoutant un fichier `windows.platform` dans le 
 
 ### linux.platform
 
-Pour faire reconnaitre un jeu pour la platform `Linux` vous devez ajouter un fichier `linux.platform` dans le dossier source du jeu. Cependant, actuellement le launcher ne supporte pas encore ces jeux.
+Pour faire reconnaitre un jeu pour la platform `Linux` vous devez ajouter un fichier `linux.platform` dans le dossier source du jeu. Seul les recomp-game sont pour l'instant supporté.
 
 ## Store
 
@@ -62,6 +62,11 @@ Cela ne supporte pas la fonction de backup de steam.
 ### abandonware.store
 
 Installation manuel
+
+### recomp-game.store
+
+Indique que le jeu est une recompilation. L'instatllation requiere un fichier .tar.gz.
+Ne supporte que la plateforme linux pour l'instant. 
 
 ## GameID
 

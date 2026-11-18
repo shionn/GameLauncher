@@ -1,6 +1,7 @@
 package shionn.game.launcher;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,6 +33,19 @@ public class TryToFindRunFile {
 					return exes[0].getAbsolutePath();
 				}
 			}
+		}
+		return null;
+	}
+
+	public String searchLinuxExecutable(Game game) {
+		File folder = new File(game.getInstalledFolder());
+		List<File> execs = Arrays
+				.stream(folder.listFiles())
+				.filter(File::isFile)
+				.filter(f -> Files.isExecutable(f.toPath()))
+				.toList();
+		if (execs.size() == 1) {
+			return execs.get(0).getAbsolutePath();
 		}
 		return null;
 	}
