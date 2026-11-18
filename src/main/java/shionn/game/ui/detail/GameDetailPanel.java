@@ -142,6 +142,10 @@ public class GameDetailPanel extends JPanel implements MouseListener {
 		panel
 				.add(new SimpleCheckBox("Forcer le curseur relatif", game, game::isGamescopeForceGrapCursor,
 						game::setGamescopeForceGrapCursor, game::isGamescopeEnabled));
+		panel
+				.add(new SimpleCheckBox("--mangoapp", game, game::isGamescopeMangoapp, game::setGamescopeMangoapp,
+						game::isGamescopeEnabled));
+
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 		return panel;
 	}

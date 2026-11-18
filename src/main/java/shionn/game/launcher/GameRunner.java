@@ -32,8 +32,8 @@ public class GameRunner {
 					.otherEnvs()
 					.directory()
 					.feralGamemode()
-					.gamescope()
 					.mangohud()
+					.gamescope()
 					.runFile()
 					.otherRunArgs()
 					.build();

@@ -23,6 +23,9 @@ public class PostInstalCommonOperation {
 			if (game.getGameId() != null) {
 				new File(game.getInstalledFolder() + "/" + game.getGameId() + ".gameid").createNewFile();
 			}
+			if (game.getPlatform() != null) {
+				new File(game.getInstalledFolder() + "/" + game.getPlatform() + ".platform").createNewFile();
+			}
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}

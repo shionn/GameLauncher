@@ -90,6 +90,9 @@ public class GameProcessBuilder {
 			if (game.isGamescopeForceGrapCursor()) {
 				arg("--force-grab-cursor");
 			}
+			if (game.isGamescopeMangoapp()) {
+				arg("--mangoapp");
+			}
 			arg("--");
 		}
 		return this;

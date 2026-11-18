@@ -13,12 +13,12 @@ public class TryToFindRunFile {
 			.asList("UnityCrashHandler64.exe", "unins000.exe", "UnityCrashHandler32.exe");
 
 	public String searchExe(Game game) {
-		String filename = search(game.getInstalledFolder() + "/drive_c/GOG Games/");
+		String filename = search(retreiveBase(game) + "/drive_c/GOG Games/");
 		if (filename == null) {
-			filename = search(game.getInstalledFolder() + "/drive_c/Steam Games/");
+			filename = search(retreiveBase(game) + "/drive_c/Steam Games/");
 		}
 		if (filename == null) {
-			filename = search(game.getInstalledFolder() + "/drive_c/Epic Games/");
+			filename = search(retreiveBase(game) + "/drive_c/Epic Games/");
 		}
 		return filename;
 	}
@@ -38,7 +38,7 @@ public class TryToFindRunFile {
 	}
 
 	public String searchLinuxExecutable(Game game) {
-		File folder = new File(game.getInstalledFolder());
+		File folder = new File(retreiveBase(game));
 		List<File> execs = Arrays
 				.stream(folder.listFiles())
 				.filter(File::isFile)
@@ -48,6 +48,19 @@ public class TryToFindRunFile {
 			return execs.get(0).getAbsolutePath();
 		}
 		return null;
+	}
+
+	private String retreiveBase(Game game) {
+		if ("recomp-game".equals(game.getStore())) {
+			List<File> folders = Arrays
+					.stream(new File(game.getInstalledFolder()).listFiles())
+					.filter(File::isDirectory)
+					.toList();
+			if (folders.size() == 1) {
+				return folders.get(0).getAbsolutePath();
+			}
+		}
+		return game.getInstalledFolder();
 	}
 
 
