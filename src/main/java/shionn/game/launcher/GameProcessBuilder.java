@@ -13,6 +13,12 @@ import shionn.game.games.Engine;
 import shionn.game.games.Game;
 
 public class GameProcessBuilder {
+	public static class Factory {
+		public GameProcessBuilder build(Engine engine, Game game) {
+			return new GameProcessBuilder(engine, game);
+		};
+	}
+
 	private Configuration configuration = new Configuration();
 	private Map<String, String> env = new HashMap<>();
 	private List<String> args = new ArrayList<>();

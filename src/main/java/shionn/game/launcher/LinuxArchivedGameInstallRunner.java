@@ -11,6 +11,9 @@ import shionn.game.games.Game;
 
 public class LinuxArchivedGameInstallRunner implements Runnable {
 	private Configuration configuration = new Configuration();
+	private PostInstalCommonOperation postInstalCommonOperation = new PostInstalCommonOperation();
+	private TryToFindRunFile tryToFindRunFile = new TryToFindRunFile();
+	private GameProcessBuilder.Factory gameProcessBuilderFactory = new GameProcessBuilder.Factory();
 	private Game game;
 	private Engine engine;
 
@@ -25,8 +28,8 @@ public class LinuxArchivedGameInstallRunner implements Runnable {
 			int exitCode = extractArchive();
 			if (exitCode == 0) {
 				game.setInstalledFolder(configuration.gamesFolder() + game.getName());
-				game.setRunfile(new TryToFindRunFile().searchLinuxExecutable(game));
-				new PostInstalCommonOperation().doPostInstall(game);
+				game.setRunfile(tryToFindRunFile.searchLinuxExecutable(game));
+				postInstalCommonOperation.doPostInstall(game);
 				game.setInstalled(true);
 			} else {
 				throw new IllegalStateException("Process return " + exitCode);
@@ -47,7 +50,8 @@ public class LinuxArchivedGameInstallRunner implements Runnable {
 
 	private int extractArchive() throws IOException, InterruptedException {
 		String pathname = makeGameFolder();
-		ProcessBuilder processBuilder = new GameProcessBuilder(engine, game)
+		ProcessBuilder processBuilder = gameProcessBuilderFactory
+				.build(engine, game)
 				.arg("tar")
 				.arg("-xvzf")
 				.arg(game.getArchives().get(0))
