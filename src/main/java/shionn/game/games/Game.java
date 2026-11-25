@@ -202,6 +202,7 @@ public class Game implements Comparable<Game> {
 		boolean old = this.gamescopeMangoapp;
 		this.gamescopeMangoapp = gamescopeMangoapp;
 		pcs.firePropertyChange("gamescopeMangoapp", old, this.gamescopeMangoapp);
+		saveConfiguration();
 	}
 
 	public void loadConfiguration() {
