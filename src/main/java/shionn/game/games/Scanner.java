@@ -65,7 +65,7 @@ public class Scanner {
 				.platform(retreiveFileName(gameFolder, ".platform"))
 				.instalers(listAbsolutePath(gameFolder, ".exe"))
 				.archives(listAbsolutePath(gameFolder, ".tar.gz"))
-				.instalersImgs(listAbsolutePath(gameFolder, ".jpg"))
+				.instalersImgs(listAbsolutePath(gameFolder, ".jpg", ".png"))
 				.build();
 	}
 
@@ -110,11 +110,14 @@ public class Scanner {
 				.orElse(null);
 	}
 
-	private List<String> listAbsolutePath(File folder, String extenssion) {
-		return Arrays
-				.stream(folder.listFiles(pathname -> pathname.getName().endsWith(extenssion)))
+	private List<String> listAbsolutePath(File folder, String... extenssions) {
+		return Arrays.stream(folder.listFiles(pathname -> Scanner.matchByExtensions(pathname, extenssions)))
 				.map(f -> f.getAbsolutePath())
 				.toList();
+	}
+
+	public static boolean matchByExtensions(File pathname, String... extenssions) {
+		return Arrays.stream(extenssions).anyMatch(e -> pathname.getName().endsWith(e));
 	}
 
 }
